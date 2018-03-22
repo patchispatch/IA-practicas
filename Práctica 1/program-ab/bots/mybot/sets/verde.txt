@@ -1,0 +1,7 @@
+manzana
+kiwi
+pinia
+mango
+higo
+pera
+aguacate

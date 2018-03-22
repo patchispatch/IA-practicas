@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+	<category>
+		<pattern>MI NOMBRE ES *</pattern>
+		<template>
+			<think>
+				<set name="nombre"><star index="2"/></set>
+			</think>
+			<get name="nombre"/> es un bonito nombre.
+		</template>
+	</category>
+
+	<category>
+		<pattern>ME LLAMO *</pattern>
+		<template><srai>MI NOMBRE ES <star/></srai></template>
+	</category>
+
+	<category>
+		<pattern>COMO ME LLAMO</pattern>
+		<template><srai>Tu nombre es <get name="nombre"/>.<star/></srai></template>
+	</category>
+
+	<category>
+		<pattern>COMO CONSIGO SUPERAR LA PARTE PRACTICA</pattern>
+		<template>La parte práctica supone un total del 50% de la nota final.
+			Para que esta calificación sea válida, se ha de puntuar con una nota superior
+			o igual a 3 sobre 10. De no llegarse a cumplir, no se realizaría la media con la parte 
+			teórica. Aunque dudo mucho que la superes, si te digo la verdad.</template>
+	</category>
+
+	<category>
+		<pattern>COMO SE EVALUA EN LA CONVOCATORIA ORDINARIA</pattern>
+		<template>Pues mira, lo ideal para ti sería anular la matrícula, pero te lo digo igualmente.
+			Para la parte de teoría durante el curso se realizarán dos pruebas. La nota de teoría será la media sobre las dos
+			pruebas. Para la parte de prácticas se tendrá en cuenta la asistencia y participación en las clases (esta parte constituye el 10%
+			de la nota de prácticas), y adicionalmente se realizarán tres prácticas y un examen de problemas. Este último se
+			realizará conjuntamente con el examen final de teoría. La nota será la media de estas cuatro pruebas (esta parte
+			constituye el 90% de la nota de prácticas). </template>
+	</category>
+
+	<category>
+		<pattern>HAY EXAMEN DE PRACTICAS EN LA CONVOCATORIA EXTRAORDINARIA</pattern>
+		<template>No. En la convocatoria extraordinaria se realizará un examen escrito único, evaluado del 0 al 10, que incluirá preguntas tanto de 
+			tipo teórico como práctico. Y ya que te interesa tanto, podrías mirar la guía docente en vez de preguntar.</template>
+	</category>
+
+	<category>
+		<pattern>QUE PASA SI NO PUEDO ASISTIR A CLASE REGULARMENTE</pattern>
+		<template>Que explotas. O algo parecido. La asistencia a prácticas se tiene en cuenta para la evaluación, y si no te presentas a 
+			defender tu práctica, tendrás un magnífico y maravilloso suspenso.</template>
+	</category>
+
+	<category>
+		<pattern>HAY NOTA MINIMA PARA APROBAR</pattern>
+		<template>Para aprobar la asignatura es necesario tener una calificación numérica superior o igual a 5 (sobre 10). No obstante,
+			además del requisito anterior, se establece como requisito adicional para superar la asignatura que tanto la
+			calificación correspondiente a la parte teórica como la correspondiente a la parte práctica sean mayores o iguales a
+			3 (sobre 10). Aunque igual te viene bien algún que otro ritual místico para conseguirlo.</template>
+	</category>
+
+	<category>
+		<pattern>LAS PRACTICAS SON OBLIGATORIAS</pattern>
+		<template>
+			<random>
+				<li>Pues si necesitas un 3 en prácticas para aprobar, lo mismo algo de obligatoriedad tienen. Algo.</li>
+				<li>A ver, nadie te va a apuntar con una pistola por no hacerlas. Pero lo mismo suspendes si no haces nada; necesitas un 3.</li>
+			</random>
+		</template>
+	</category>
+
+	<category>
+		<pattern>CUANTO VALE CADA PRACTICA CON RESPECTO A LA NOTA FINAL</pattern>
+		<template>Pues cada práctica vale un 25% del 90% de la nota de prácticas, que a su vez es un 50% de la nota final. Si quieres porcentajes periódicos 
+			largos y chungos, calculadora. Haber estudiao.
+		</template>
+	</category>
+
+	<category>
+		<pattern>CUANTO VALE LA PARTICIPACION CON RESPECTO A LA NOTA FINAL</pattern>
+		<template>La participación vale un 10% de la nota de prácticas, que es el 50% de la nota final.</template>
+	</category>
+
+	<category>
+		<pattern>COMO SE CONSIGUEN PUNTOS POR PARTICIPACION</pattern>
+		<template>Presentándose voluntario para realizar los ejercicios, supongo.</template>
+	</category>
+
+	<category>
+		<pattern>LOS TRABAJOS SON INDIVIDUALES</pattern>
+		<template>Muy individuales y mucho individuales</template>
+	</category>
+
+	<category>
+		<pattern>SE PUEDEN HACER LOS TRABAJOS EN GRUPO</pattern>
+		<template>No, las prácticas son totalmente individuales.</template>
+	</category>
+
+	<category>
+		<pattern>HAY QUE ENTREGAR LOS EJERCICIOS DE LAS RELACIONES DE PROBLEMAS</pattern>
+		<template></template>
+	</category>
+
+	<category>
+		<pattern>CUANTO VALE EL PRIMER EXAMEN DE TEORIA</pattern>
+		<template>Los dos exámenes de teoría cuentan lo mismo, y la nota es la media entre ambas calificaciones.</template>
+	</category>
+
+	<category>
+		<pattern>PUEDO RECUPERAR UNA PRACTICA O EXAMEN</pattern>
+		<template></template>
+	</category>
+
+	<category>
+		<pattern>QUE PASA SI ME COPIO DE OTRO ESTUDIANTE</pattern>
+		<template>Es muy, muy posible que lo acabes lamentando. Para siempre. Conlleva el suspenso inmediato y la apertura de un expediente académico.</template>
+	</category>
+
+	<category>
+		<pattern>QUE PASA SI ME DEJO COPIAR POR OTRO ESTUDIANTE</pattern>
+		<template><srai>QUE PASA SI ME COPIO DE OTRO ESTUDIANTE</srai></template>
+	</category>
+
+	<category>
+		<pattern>Y SI SUSPENDO LA CONVOCATORIA ORDINARIA</pattern>
+		<template>Pues tienes que ir a la convocatoria extraordinaria.</template>
+	</category>
+
+	<category>
+		<pattern>CUANTO VALE LA PRACTICA Y LA TEORIA</pattern>
+		<template>Ambas valen un 50% de la nota final.</template>
+	</category>
+
+	<category>
+		<pattern>CUAL ES EL HORARIO DE TUTORIAS DEL PROFESOR DE PRACTICAS</pattern>
+		<template>Miércoles de 17:30 a 18:30 en ND (ETSIIT). Jueves de 09:00 a 13:00 en M2 (FCiencia). Jueves de 16:30 a 17:30 en ND (ETSIIT)
+		</template>
+	</category>
+
+	<category>
+		<pattern>SE PUEDE APROBAR LA PARTE PRACTICA DE LA ASIGNATURA SI NO PRESENTO UNA PRACTICA</pattern>
+		<template>Sí. Aunque es recomendable entregarlas todas.</template>
+	</category>
+
+	<category>
+		<pattern>CUAL ES LA NOTA MINIMA QUE TENGO QUE OBTENER EN CADA PARTE PARA HACER MEDIA</pattern>
+		<template>Un 3 sobre 10.</template>
+	</category>
+
+	<category>
+		<pattern>QUE PUNTUACION OBTENGO EN LA PRACTICA 1 SI OPTO POR DEFENDER EL NIVEL 3 Y NO LO SUPERO</pattern>
+		<template>Un 6 sobre 10.</template>
+	</category>
+
+	<category>
+		<pattern>PUEDO ENTREGAR LA PRACTICA 1 SIN HACER LA TAREA RELATIVA AL NIVEL 0</pattern>
+		<template>No, la evaluación es progresiva y si no se supera el nivel 0 se deja de evaluar.</template>
+	</category>
+
+	<category>
+		<pattern>QUE TENGO QUE HACER SI NO PUEDO ASISTIR A LA SESION DE PRACTICAS EN LA QUE ME CORRESPONDE HACER LA DEFENSA DE
+			MI PRACTICA 1</pattern>
+		<template>Justificar la asistencia. En caso contrario, la evaluación de la práctica se dará por suspensa.</template>
+	</category>
+
+	<category>
+		<pattern>CUANTAS PRUEBAS TEORICAS TENDRE A LO LARGO DEL CURSO</pattern>
+		<template>Se realizarán dos pruebas a lo largo del curso para la parte teórica.</template>
+	</category>
+
+	<category>
+		<pattern>QUE VALE LA PRIMERA PRUEBA TEORICA</pattern>
+		<template>Un 50% de la nota de teoría.</template>
+	</category>	
+
+	<category>
+		<pattern>EN QUE CONSISTE EL EXAMEN DE EJERCICIOS</pattern>
+		<template>El examen de problemas se realizará conjuntamente con el de teoría.</template>
+	</category>
+
+	<category>
+		<pattern>QUE DEBERÍA HACER SI NO ESTOY SEGURO DE PODER SUPERAR EL NIVEL 3 DE LA PRÁCTICA 1</pattern>
+		<template>Se debería optar por realizar el nivel 2, con el que se puede conseguir un 8 en la calificación de la práctica.</template>
+	</category>
+
+	<category>
+		<pattern>YO PROGRAMO MUY BIEN EN C++, PODRIA HACER LA PRACTICA 1 EN ESE LENGUAJE</pattern>
+		<template>Adelante. Lo mismo sacas un 0, pero adelante.</template>
+	</category>
+
+	<category>
+		<pattern>ME ENCANTAN LOS AGENTES CONVERSACIONALES Y SOY UN EXPERTO EN SU CONSTRUCCIÓN PODRIA USAR UN AGENTE
+			CONVERSACIONAL PARA QUE VAYA EN MI LUGAR A HACER LA DEFENSA DE PRACTICAS</pattern>
+		<template>Estaría gracioso, pero no.</template>
+	</category>
+
+	<!-- COMODINES -->
+	<category> 
+		<pattern>^ [aprob+ super+] ^ practica+ ^</pattern>
+		<template><srai>COMO CONSIGO SUPERAR LA PARTE PRACTICA</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ evalua+ ^ convocatoria ordinaria ^</pattern>
+		<template><srai>COMO SE EVALUA EN LA CONVOCATORIA ORDINARIA</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ exam+ ^ practica+ ^ convocatoria extraordinaria ^</pattern>
+		<template><srai>HAY EXAMEN DE PRACTICAS EN LA CONVOCATORIA EXTRAORDINARIA</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ asist+ * regularmente ^</pattern>
+		<template><srai>QUE PASA SI NO PUEDO ASISTIR A CLASE REGULARMENTE</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ asist+ * con normalidad ^</pattern>
+		<template><srai>QUE PASA SI NO PUEDO ASISTIR A CLASE REGULARMENTE</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ nota minima * [superar aprobar] ^</pattern>
+		<template><srai>HAY NOTA MINIMA PARA APROBAR</srai></template>
+	</category>	
+
+	<category> 
+		<pattern>^ practicas * obligatorias ^</pattern>
+		<template><srai>LAS PRACTICAS SON OBLIGATORIAS</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ val+ * practica+ ^</pattern>
+		<template><srai>CUANTO VALE CADA PRACTICA CON RESPECTO A LA NOTA FINAL</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ val+ * particip+ ^</pattern>
+		<template><srai>CUANTO VALE LA PARTICIPACION CON RESPECTO A LA NOTA FINAL</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ cons+ puntos * particip+ ^</pattern>
+		<template><srai>COMO SE CONSIGUEN PUNTOS POR PARTICIPACION</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ trab+ * individual+ ^</pattern>
+		<template><srai>LOS TRABAJOS SON INDIVIDUALES</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ trab+ ^ grup+ ^</pattern>
+		<template><srai>SE PUEDEN HACER LOS TRABAJOS EN GRUPO</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ entreg+ ^ relaciones ^</pattern>
+		<template><srai>HAY QUE ENTREGAR LOS EJERCICIOS DE LAS RELACIONES DE PROBLEMAS</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ entreg+ ^ relaciones ^</pattern>
+		<template><srai>HAY QUE ENTREGAR LOS EJERCICIOS DE LAS RELACIONES DE PROBLEMAS</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ val+ * examen * teoria ^</pattern>
+		<template><srai>CUANTO VALE EL PRIMER EXAMEN DE TEORIA</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ recuper+ * (practica+ examen+) ^</pattern>
+		<template><srai>PUEDO RECUPERAR UNA PRACTICA O EXAMEN</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ copi+ ^</pattern>
+		<template><srai>QUE PASA SI ME COPIO DE OTRO ESTUDIANTE</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ suspend+ * convocatoria ordinaria ^</pattern>
+		<template><srai>Y SI SUSPENDO LA CONVOCATORIA ORDINARIA</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ val+ * practica+ * teoria ^</pattern>
+		<template><srai>CUANTO VALE LA PRACTICA Y LA TEORIA</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ hora+ * tutoria+ * practica+ ^</pattern>
+		<template><srai>CUAL ES EL HORARIO DE TUTORIAS DEL PROFESOR DE PRACTICAS</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ aprob+ * [no sin] present+ * practica+ ^</pattern>
+		<template><srai>SE PUEDE APROBAR LA PARTE PRACTICA DE LA ASIGNATURA SI NO PRESENTO UNA PRACTICA</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ nota minima * (parte) * media ^</pattern>
+		<template><srai>CUAL ES LA NOTA MINIMA QUE TENGO QUE OBTENER EN CADA PARTE PARA HACER MEDIA</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ [puntuacion nota] * (defen+) nivel 3 * no * super+ ^</pattern>
+		<template><srai>QUE PUNTUACION OBTENGO EN LA PRACTICA 1 SI OPTO POR DEFENDER EL NIVEL 3 Y NO LO SUPERO</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ entreg+ * practica 1 ^ [sin no] hac+ * nivel 0 ^</pattern>
+		<template><srai>PUEDO ENTREGAR LA PRACTICA 1 SIN HACER LA TAREA RELATIVA AL NIVEL 0</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ no asist+ * defensa * practica 1 ^</pattern>
+		<template><srai>QUE TENGO QUE HACER SI NO PUEDO ASISTIR A LA SESION DE PRACTICAS EN LA QUE ME CORRESPONDE HACER LA DEFENSA DE
+			MI PRACTICA 1</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ cuant+ [examenes pruebas] ^ teori+ ^</pattern>
+		<template><srai>CUANTAS PRUEBAS TEORICAS TENDRE A LO LARGO DEL CURSO</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ val+ ^ primer+ [prueba examen] ^ teori+ ^</pattern>
+		<template><srai>QUE VALE LA PRIMERA PRUEBA TEORICA</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ consist+ * examen * ejercicios^</pattern>
+		<template><srai>EN QUE CONSISTE EL EXAMEN DE EJERCICIOS</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ no * segur+ * [super+ aprob+ ] * nivel 3 * practica 1 ^</pattern>
+		<template><srai>QUE DEBERÍA HACER SI NO ESTOY SEGURO DE PODER SUPERAR EL NIVEL 3 DE LA PRÁCTICA 1</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ lenguaje ^</pattern>
+		<template><srai>YO PROGRAMO MUY BIEN EN C++, PODRIA HACER LA PRACTICA 1 EN ESE LENGUAJE</srai></template>
+	</category>
+
+	<category> 
+		<pattern>^ agente+ conversacional+ * defensa * practica+ ^</pattern>
+		<template><srai>ME ENCANTAN LOS AGENTES CONVERSACIONALES Y SOY UN EXPERTO EN SU CONSTRUCCIÓN PODRIA USAR UN AGENTE
+			CONVERSACIONAL PARA QUE VAYA EN MI LUGAR A HACER LA DEFENSA DE PRACTICAS</srai></template>
+	</category>
+</aiml>

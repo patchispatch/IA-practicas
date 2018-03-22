@@ -1,0 +1,6 @@
+color: amarillo
+tamanio: mediano
+sabor: dulce
+vitamina-a: no
+vitamina-b: si
+vitamina-c: si

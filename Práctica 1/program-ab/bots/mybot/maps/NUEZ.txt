@@ -1,0 +1,6 @@
+color: marron
+tamanio: pequenio
+sabor: neutro
+vitamina-a: no
+vitamina-b: si
+vitamina-c: no

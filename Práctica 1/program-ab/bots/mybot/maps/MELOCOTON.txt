@@ -1,0 +1,6 @@
+color: amarillo naranja
+tamanio: mediano
+sabor: semiacido
+vitamina-a: si
+vitamina-b: si
+vitamina-c: no

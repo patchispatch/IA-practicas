@@ -1,0 +1,5 @@
+fresa
+manzana
+mango
+melocoton
+cereza

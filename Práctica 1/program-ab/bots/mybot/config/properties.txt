@@ -1,0 +1,9 @@
+url:http://www.alicebot.org
+name:Cuin Marcurcli
+email:myBot@gmail.com
+gender:male
+botmaster:Juan
+organization:ugr
+version:0.0.4
+
+

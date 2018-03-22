@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+<!-- Regla para elegir fruta -->
+
+<category>
+	<pattern> Piensa una fruta </pattern>
+	<template>
+		<think>
+			<set var="lista"> <readset>frutas</readset> </set>
+			<set var="cantidad"><srai>COUNT <get var="lista"/></srai></set>
+			<set var="pos"><srai>RANDOM <get var="cantidad"/></srai></set>
+			<set name="elegida">
+				<srai>
+					SELECTITEM <get var="pos"/> IN <get var="lista"/>
+				</srai>
+			</set>
+		</think>
+		Ya tengo mi fruta pensada. ¿Podrás adivinarla?
+	</template>
+</category>
+
+<category>
+	<pattern>^ color *</pattern>
+	<template>
+		<think>
+			<set var="color">
+				<map><name><get name="elegida"/></name>color</map>
+			</set>
+		</think>
+		
+		<set var="is"><srai> FINDITEM <star index="2" /> IN <get var="color"/></srai></set>
+
+		<condition var="is">
+			<li value="0"> No, no es de color <star index="2"/></li>
+			<li>Sí, es de color <star index="2"/></li>
+		</condition>
+	</template>
+</category>
+
+<category>
+	<pattern>^ tamanio *</pattern>
+	<template>
+		<think>
+			<set var="eltamanio"><star index="2"/></set>
+			<set var="tamanio">
+				<map><name><get name="elegida"/></name>tamanio</map>
+			</set>
+		</think>
+		<condition var="eltamanio">
+			<li><value><get var="tamanio"/></value> Sí, es <star index="2"/></li>
+			<li> No, no es <star index="2"/></li>
+		</condition>
+	</template>
+</category>
+
+<category>
+	<pattern>^ sabor *</pattern>
+	<template>
+		<think>
+			<set var="elsabor"><star index="2"/></set>
+			<set var="sabor">
+				<map><name><get name="elegida"/></name>sabor</map>
+			</set>
+		</think>
+		<condition var="elsabor">
+			<li><value><get var="sabor"/></value> Sí, es <star index="2"/></li>
+			<li> No, no es <star index="2"/></li>
+		</condition>
+	</template>
+</category>
+
+<category>
+	<pattern>^ vitamina a ^</pattern>
+	<template>
+		<think>
+			<set var="vitamina-a">
+				<map><name><get name="elegida"/></name>vitamina-a</map>
+			</set>
+		</think>
+		<condition var="vitamina-a">
+			<li value="si"> Sí, tiene vitamina A</li>
+			<li> No, no tiene vitamina A</li>
+		</condition>
+	</template>
+</category>
+
+<category>
+	<pattern>^ vitamina b ^</pattern>
+	<template>
+		<think>
+			<set var="vitamina-b">
+				<map><name><get name="elegida"/></name>vitamina-b</map>
+			</set>
+		</think>
+		<condition var="vitamina-b">
+			<li value="si"> Sí, tiene vitamina B</li>
+			<li> No, no tiene vitamina B</li>
+		</condition>
+	</template>
+</category>
+
+<category>
+	<pattern>^ vitamina c ^</pattern>
+	<template>
+		<think>
+			<set var="vitamina-c">
+				<map><name><get name="elegida"/></name>vitamina-c</map>
+			</set>
+		</think>
+		<condition var="vitamina-c">
+			<li value="si"> Sí, tiene vitamina C</li>
+			<li> No, no tiene vitamina C</li>
+		</condition>
+	</template>
+</category>
+
+<category>
+	<pattern>^ tu fruta es [el la] *</pattern>
+	<template>
+		<think>
+			<set var="lafruta"><star index="2"/></set>
+		</think>
+		<condition var="lafruta">
+			<li><value><get name="elegida"/></value> ¡Has acertado! Mi fruta es <star index="2"/></li>
+			<li> No, no es <star index="2"/></li>
+		</condition>
+	</template>
+</category>
+
+</aiml>
+
+

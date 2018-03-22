@@ -1,0 +1,6 @@
+color: verde morado
+tamanio: pequenio
+sabor: dulce
+vitamina-a: no
+vitamina-b: si
+vitamina-c: si

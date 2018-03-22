@@ -1,0 +1,6 @@
+manzana
+naranja
+melocoton
+pera
+platano
+aguacate

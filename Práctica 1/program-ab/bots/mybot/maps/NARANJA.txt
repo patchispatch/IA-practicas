@@ -1,0 +1,6 @@
+color: naranja
+tamanio: mediano
+sabor: acido
+vitamina-a: no
+vitamina-b: no
+vitamina-c: si

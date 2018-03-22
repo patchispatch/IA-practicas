@@ -1,0 +1,6 @@
+manzana
+kiwi
+pinia
+melocoton
+ciruela
+platano

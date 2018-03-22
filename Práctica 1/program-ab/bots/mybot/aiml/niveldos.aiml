@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+<category>
+    <pattern>Nivel 2</pattern>
+    <template>
+        <think>
+            <set name="opciones">
+                color tamanio sabor vitamina-a vitamina-b vitamina-c
+            </set>
+
+            <set name="x">
+                <srai> 
+                    RANDOM 
+                    <srai> 
+                        COUNT <get name="opciones"/>
+                    </srai>
+                </srai>
+            </set>
+
+            <set name="y">
+                <srai>
+                    SELECTITEM <get name="x"/> IN <get name="opciones"/>
+                </srai>
+            </set>
+        </think>
+
+        <condition name="y">
+            <li value="color">
+                <random>
+                    <li>
+                        Es de color verde
+                        <think><set name="atrib">verde</set></think>
+                    </li>
+                    <li>
+                        Es de color rojo
+                        <think><set name="atrib">rojo</set></think>
+                    </li>
+                    <li>
+                        Es de color amarillo
+                        <think><set name="atrib">amarillo</set></think>
+                    </li>
+                    <li>
+                        Es de color morado
+                        <think><set name="atrib">morado</set></think>
+                    </li>
+                    <li>
+                        Es de color marron
+                        <think><set name="atrib">marron</set></think>
+                    </li>
+                    <li>
+                        Es de color naranja
+                        <think><set name="atrib">naranja</set></think>
+                    </li>
+                </random>
+            </li>          
+
+            <li value="tamanio">
+                <random>
+                    <li>
+                        Es de tamanio pequenio
+                        <think><set name="atrib">pequenio</set></think>
+                    </li>
+                    <li>
+                        Es de tamanio mediano
+                        <think><set name="atrib">mediano</set></think>
+                    </li>
+                    <li>
+                        Es de tamanio grande
+                        <think><set name="atrib">grande</set></think>
+                    </li>
+                </random>
+            </li>
+
+            <li value="sabor">
+                <random>
+                    <li>
+                        Es de sabor dulce
+                        <think><set name="atrib">dulce</set></think>
+                    </li>
+                
+                    <li>
+                        Es de sabor semiacido
+                        <think><set name="atrib">semiacido</set></think>
+                    </li>
+                    <li>
+                        Es de sabor acido
+                        <think><set name="atrib">acido</set></think>
+                    </li>
+                    
+                    <li>
+                        Es de sabor neutro
+                        <think><set name="atrib">neutro</set></think>
+                    </li>
+                </random>
+            </li>
+
+            <li value="vitamina-a">
+                Tiene vitamina A
+                <think><set name="atrib">vitamina-a</set></think>
+            </li>
+
+            <li value="vitamina-b">
+                Tiene vitamina B
+                <think><set name="atrib">vitamina-b</set></think>
+            </li>
+
+            <li value="vitamina-c">
+                Tiene vitamina C
+                <think><set name="atrib">vitamina-c</set></think>
+            </li>
+        </condition>
+
+        <think>
+            <set var="pensadas">
+                <readset>
+                    pensadas
+                </readset>            
+            </set>
+            
+            <set var="contador">
+                <srai>
+                    COUNT <get var="pensadas"/>
+                </srai>
+            </set>
+
+            <condition var="contador">
+                <li value="1">
+                    <srai>
+                        ADIVINA3383
+                    </srai>
+                </li>
+                <li></li>
+            </condition>
+        </think>
+        
+    </template>
+</category>
+
+<category>
+    <pattern>^ si ^</pattern>
+    <template>
+        <think>
+            <set var="set-atr">
+                <readset>
+                    <get name="atrib"/>
+                </readset>
+            </set>
+
+            <set var="item">
+                <srai> ITERATE <get var="set-atr"/></srai>
+            </set>
+            <set var="pens">
+                <readset>
+                    pensadas
+                </readset>
+            </set>
+            <condition var="item">
+                <li value="end"></li>
+                <li> 
+                    <think>
+                        <set var="is"><srai> FINDITEM <get var="item"/> IN <get var="pens"/></srai></set>
+                    </think>
+
+                    <condition var="is">
+                        <li value="0">
+                            <addtoset>
+                                <name>pensadas</name>
+                                <key><get var="item"/></key>
+                            </addtoset>
+                        </li>
+                        <li>
+                            <removefromset>
+                                <name>pensadas</name>
+                                <key><get var="item"/></key>
+                            </removefromset>
+                        </li>
+                    </condition>
+
+                    <removefromset>
+                        <name>pensadas</name>
+                        <key>$</key>
+                    </removefromset>
+
+                    <think>
+                        <set var="item">
+                            <srai>NEXT</srai>
+                        </set>
+                    </think>
+
+                    <loop/>
+                </li>
+            </condition>
+
+            <srai>
+                REMOVEITEM <get name="x"/> FROM <get name="opciones"/>
+            </srai>
+
+            <srai>
+                nivel 2
+            </srai>
+
+        </think> 
+    </template>
+</category>
+
+<category>
+    <pattern>^ no ^</pattern>
+    <template>
+        <think>
+            <set var="item">
+                <srai> ITERATE <get name="atrib"/></srai>
+            </set>
+            <set var="pens">
+                <readset>
+                    pensadas
+                </readset>
+            </set>
+            <condition var="item">
+                <li value="end"></li>
+                <li> 
+                    <think>
+                        <set var="is"><srai> FINDITEM <get var="item"/> IN <get var="pens"/></srai></set>
+                    </think>
+                    <condition var="is">
+                        <li value="0"></li>
+                        <li>
+                            <removefromset>
+                                <name>pensadas</name>
+                                <key><get var="item"/></key>
+                            </removefromset>
+                        </li>
+                    </condition>
+                    <think>
+                        <set var="item">
+                            <srai>NEXT</srai>
+                        </set>
+                    </think>
+                    <loop/>
+                </li>
+            </condition>
+
+            <srai>
+                nivel 2
+            </srai>
+
+        </think> 
+    </template>
+</category>
+
+<category>
+    <pattern>
+        ADIVINA3383
+    </pattern>
+    <template>
+        <think>
+            <set var="resultado">
+                <readset>
+                    pensadas
+                </readset>
+            </set>
+        </think>
+        Tu fruta es <get var="resultado"/>
+    </template>
+</category>
+</aiml>

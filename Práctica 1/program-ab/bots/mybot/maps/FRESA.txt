@@ -1,0 +1,6 @@
+color: rojo
+tamanio: pequenio
+sabor: semiacido
+vitamina-a: no
+vitamina-b: si
+vitamina-c: si
