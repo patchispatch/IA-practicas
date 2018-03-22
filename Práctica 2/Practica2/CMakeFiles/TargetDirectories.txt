@@ -1,0 +1,9 @@
+/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/rebuild_cache.dir
+/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/edit_cache.dir
+/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/BelkanSG.dir
+/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/GLUILib.dir
+/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/Belkan.dir
+/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/obj3DLib.dir
+/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/motorLib.dir
+/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/modelosBelkanLib.dir
+/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/comportamientosLib.dir
