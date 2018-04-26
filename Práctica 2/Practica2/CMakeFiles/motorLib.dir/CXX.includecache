@@ -6,37 +6,37 @@
 
 #IncludeRegexTransform: 
 
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/entidad.cpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/entidad.cpp
 motorlib/entidad.hpp
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/motorlib/entidad.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/motorlib/entidad.hpp
 
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/mapa.cpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/mapa.cpp
 motorlib/mapa.hpp
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/motorlib/mapa.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/motorlib/mapa.hpp
 
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/monitor.cpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/monitor.cpp
 motorlib/monitor.hpp
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/motorlib/monitor.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/motorlib/monitor.hpp
 fstream
 -
 
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/motor_grafico.cpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/motor_grafico.cpp
 motorlib.hpp
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/motorlib.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/motorlib.hpp
 glui/glui.h
 -
 dirent.h
 -
 
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/motor_juego.cpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/motor_juego.cpp
 motorlib.hpp
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/motorlib.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/motorlib.hpp
 unistd.h
 -
 
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/util.cpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/util.cpp
 motorlib/util.h
-/home/usuario/Descargas/Practica2Mod/Practica2/src/motorlib/motorlib/util.h
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/motorlib/motorlib/util.h
 
 Comportamientos_Jugador/aldeano.hpp
 chrono

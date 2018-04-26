@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/aldeano.cpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/aldeano.cpp
 ../Comportamientos_Jugador/aldeano.hpp
-/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/aldeano.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/aldeano.hpp
 motorlib/util.h
-/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/motorlib/util.h
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/motorlib/util.h
 
-/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/aldeano.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/aldeano.hpp
 chrono
 -
 time.h
@@ -20,27 +20,27 @@ time.h
 thread
 -
 comportamientos/comportamiento.hpp
-/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/comportamientos/comportamiento.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/comportamientos/comportamiento.hpp
 
-/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/jugador.cpp
-../Comportamientos_Jugador/jugador.hpp
-/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/jugador.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/jugador.cpp
+jugador.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/jugador.hpp
 motorlib/util.h
-/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/motorlib/util.h
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/motorlib/util.h
 iostream
 -
 cmath
 -
 
-/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/jugador.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/jugador.hpp
 comportamientos/comportamiento.hpp
-/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/comportamientos/comportamiento.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/comportamientos/comportamiento.hpp
 list
 -
 
-/home/usuario/Descargas/Practica2Mod/Practica2/src/comportamientos/comportamiento.cpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/comportamientos/comportamiento.cpp
 comportamientos/comportamiento.hpp
-/home/usuario/Descargas/Practica2Mod/Practica2/src/comportamientos/comportamientos/comportamiento.hpp
+/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/comportamientos/comportamientos/comportamiento.hpp
 
 include/comportamientos/comportamiento.hpp
 vector

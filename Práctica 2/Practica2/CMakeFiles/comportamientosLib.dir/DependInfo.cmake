@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/aldeano.cpp" "/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/comportamientosLib.dir/Comportamientos_Jugador/aldeano.cpp.o"
-  "/home/usuario/Descargas/Practica2Mod/Practica2/Comportamientos_Jugador/jugador.cpp" "/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/comportamientosLib.dir/Comportamientos_Jugador/jugador.cpp.o"
-  "/home/usuario/Descargas/Practica2Mod/Practica2/src/comportamientos/comportamiento.cpp" "/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/comportamientosLib.dir/src/comportamientos/comportamiento.cpp.o"
+  "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/aldeano.cpp" "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles/comportamientosLib.dir/Comportamientos_Jugador/aldeano.cpp.o"
+  "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/jugador.cpp" "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles/comportamientosLib.dir/Comportamientos_Jugador/jugador.cpp.o"
+  "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/comportamientos/comportamiento.cpp" "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles/comportamientosLib.dir/src/comportamientos/comportamiento.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

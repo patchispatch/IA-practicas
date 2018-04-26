@@ -9,7 +9,12 @@ struct estado {
   int fila;
   int columna;
   int orientacion;
+  estado * padre;
+  int coste_g;
+  int coste_f;
 };
+
+
 
 class ComportamientoJugador : public Comportamiento {
   public:
@@ -36,6 +41,9 @@ class ComportamientoJugador : public Comportamiento {
     int interact(Action accion, int valor);
     void VisualizaPlan(const estado &st, const list<Action> &plan);
     ComportamientoJugador * clone(){return new ComportamientoJugador(*this);}
+
+    int h(estado e);
+    int g(estado e);
 
   private:
     // Declarar Variables de Estado

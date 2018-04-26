@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/usuario/Descargas/Practica2Mod/Practica2/bin_src/juego.cc" "/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/Belkan.dir/bin_src/juego.cc.o"
+  "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/bin_src/juego.cc" "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles/Belkan.dir/bin_src/juego.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -15,11 +15,11 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/obj3DLib.dir/DependInfo.cmake"
-  "/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/motorLib.dir/DependInfo.cmake"
-  "/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/modelosBelkanLib.dir/DependInfo.cmake"
-  "/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/GLUILib.dir/DependInfo.cmake"
-  "/home/usuario/Descargas/Practica2Mod/Practica2/CMakeFiles/comportamientosLib.dir/DependInfo.cmake"
+  "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles/obj3DLib.dir/DependInfo.cmake"
+  "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles/motorLib.dir/DependInfo.cmake"
+  "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles/modelosBelkanLib.dir/DependInfo.cmake"
+  "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles/GLUILib.dir/DependInfo.cmake"
+  "/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles/comportamientosLib.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.
