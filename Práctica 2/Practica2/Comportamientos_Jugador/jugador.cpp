@@ -5,9 +5,10 @@
 #include <iostream>
 #include <cmath>
 #include <list>
+#include <queue>
 
 
-bool ordenar (const estado &uno, const estado &otro) {
+bool operator< (const estado &uno, const estado &otro) {
 
 	return uno.coste_f < otro.coste_f;
 }
@@ -77,25 +78,46 @@ void ComportamientoJugador::VisualizaPlan(const estado &st, const list<Action> &
 
 
 bool ComportamientoJugador::pathFinding(const estado &origen, const estado &destino, list<Action> &plan) {
-	list<estado> abiertos;
+	
+	/*
+	Usamos una cola con prioridad para abiertos y una matriz de booleanos para cerrados.
+	Como siempre sacaremos de abiertos la casilla con menor coste, hemos sobrecargado el operator< para que se ordene así.
+	Para cerrados, usamos una matriz de booleanos del tamaño del mapa, donde si el valor es true, esa casilla no se debe considerar.
+	Cada vez que analicemos un estado, comprobaremos si ya está marcado como cerrado en esta matriz.
+	*/
+	priority_queue<estado> abiertos;
 	vector<vector<bool>> cerrados;
 
+
+	//Inicializamos la matriz de cerrados:
 	for (int i = 0; i < mapaResultado.size(); ++i) {
 		for (int j = 0; i < mapaResultado.size(); ++j) {
 			mapaResultado[i][j] = false;
 		}
 	}
 
+	//Usamos también una lista ruta, para almacenar el path conforme lo calculamos. Después lo usaremos para definir el plan.
 	list<estado> ruta;
 
+	/*
+	Definimos cuatro estados a partir de uno actual, que en la primera iteración será el origen. Estos estados corresponderán al siguiente esquema:
+
+			e2
+		e4	act	 e3
+			e1
+
+	*/
 	estado e1, e2, e3, e4;
 	estado actual = origen;
 
+	//Para calcular el coste de las casillas, asignamos el coste de la primera posición a 0:
 	actual.coste_g = 0;
 
+
+	//Proceso de búsqueda:
 	while (!(cerrados[destino.fila][destino.columna])) {
 		cerrados[actual.fila][actual.columna] = true;
-		abiertos.erase(actual); 
+		abiertos.pop(); 
 
 		e1 = actual; 
 		e2 = actual; 
@@ -117,7 +139,7 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 			cerrados[e1.fila][e1.columna] = true;
 		}
 		else {
-			abiertos.push_back(e1);
+			abiertos.push(e1);
 			e1.coste_f = g(e1) + h(e1);
 		}
 
@@ -125,7 +147,7 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 			cerrados[e2.fila][e2.columna] = true;
 		}
 		else {
-			abiertos.push_back(e2);
+			abiertos.push(e2);
 			e1.coste_f = g(e2) + h(e2);
 		}
 
@@ -133,7 +155,7 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 			cerrados[e3.fila][e3.columna] = true;
 		}
 		else {
-			abiertos.push_back(e3);
+			abiertos.push(e3);
 			e1.coste_f = g(e3) + h(e3);
 		}
 
@@ -141,13 +163,15 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 			cerrados[e4.fila][e4.columna] = true;
 		}
 		else {
-			abiertos.push_back(e4);
+			abiertos.push(e4);
 			e1.coste_f = g(e4) + h(e4);
 		}
 
-		abiertos.sort(ordenar);
-		actual = abiertos.front();
+		//Asignamos el menor, es decir, el primero:
+		actual = abiertos.top();
 		ruta.push_back(actual);
+
+		//Nivel 2: en vez de recalcular la ruta entera, hacer un "parche" a la ruta.
 		
 	}
 
