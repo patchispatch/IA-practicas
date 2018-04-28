@@ -239,21 +239,18 @@ OPENGL_xmesa_INCLUDE_DIR:PATH=OPENGL_xmesa_INCLUDE_DIR-NOTFOUND
 OpenMP_CXX_FLAGS:STRING=-fopenmp
 
 //CXX compiler libraries for OpenMP parallelization
-OpenMP_CXX_LIB_NAMES:STRING=gomp;pthread;c
+OpenMP_CXX_LIB_NAMES:STRING=gomp;pthread
 
 //C compiler flags for OpenMP parallelization
 OpenMP_C_FLAGS:STRING=-fopenmp
 
 //C compiler libraries for OpenMP parallelization
-OpenMP_C_LIB_NAMES:STRING=gomp;pthread;c
+OpenMP_C_LIB_NAMES:STRING=gomp;pthread
 
-//Path to a library.
-OpenMP_c_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libc.so
-
-//Path to a library.
+//Path to the gomp library for OpenMP
 OpenMP_gomp_LIBRARY:FILEPATH=/usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so
 
-//Path to a library.
+//Path to the pthread library for OpenMP
 OpenMP_pthread_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpthread.so
 
 //Dependencies for the target
@@ -415,11 +412,11 @@ FIND_PACKAGE_MESSAGE_DETAILS_JPEG:INTERNAL=[/usr/lib/x86_64-linux-gnu/libjpeg.so
 //Details about finding OpenGL
 FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[/usr/lib/x86_64-linux-gnu/libOpenGL.so][/usr/lib/x86_64-linux-gnu/libGLX.so][/usr/include][c ][v()]
 //Details about finding OpenMP
-FIND_PACKAGE_MESSAGE_DETAILS_OpenMP:INTERNAL=[TRUE][TRUE][c ][v()]
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP:INTERNAL=[TRUE][TRUE][c ][v4.5()]
 //Details about finding OpenMP_C
-FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_C:INTERNAL=[-fopenmp][/usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so][/usr/lib/x86_64-linux-gnu/libpthread.so][/usr/lib/x86_64-linux-gnu/libc.so][v()]
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_C:INTERNAL=[-fopenmp][/usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so][/usr/lib/x86_64-linux-gnu/libpthread.so][v4.5()]
 //Details about finding OpenMP_CXX
-FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_CXX:INTERNAL=[-fopenmp][/usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so][/usr/lib/x86_64-linux-gnu/libpthread.so][/usr/lib/x86_64-linux-gnu/libc.so][v()]
+FIND_PACKAGE_MESSAGE_DETAILS_OpenMP_CXX:INTERNAL=[-fopenmp][/usr/lib/gcc/x86_64-linux-gnu/7/libgomp.so][/usr/lib/x86_64-linux-gnu/libpthread.so][v4.5()]
 //ADVANCED property for variable: GLUT_INCLUDE_DIR
 GLUT_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GLUT_Xi_LIBRARY
@@ -470,8 +467,6 @@ OpenMP_C_SPEC_DATE:INTERNAL=201511
 OpenMP_SPECTEST_CXX_:INTERNAL=TRUE
 //Result of TRY_COMPILE
 OpenMP_SPECTEST_C_:INTERNAL=TRUE
-//ADVANCED property for variable: OpenMP_c_LIBRARY
-OpenMP_c_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OpenMP_gomp_LIBRARY
 OpenMP_gomp_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OpenMP_pthread_LIBRARY

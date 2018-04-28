@@ -66,8 +66,8 @@ CMAKE_BINARY_DIR = "/home/patchispatch/Documentos/Informática/2º/IA/IA-practic
 CMakeFiles/BelkanSG.dir/all: CMakeFiles/obj3DLib.dir/all
 CMakeFiles/BelkanSG.dir/all: CMakeFiles/motorLib.dir/all
 CMakeFiles/BelkanSG.dir/all: CMakeFiles/modelosBelkanLib.dir/all
-CMakeFiles/BelkanSG.dir/all: CMakeFiles/comportamientosLib.dir/all
 CMakeFiles/BelkanSG.dir/all: CMakeFiles/GLUILib.dir/all
+CMakeFiles/BelkanSG.dir/all: CMakeFiles/comportamientosLib.dir/all
 	$(MAKE) -f CMakeFiles/BelkanSG.dir/build.make CMakeFiles/BelkanSG.dir/depend
 	$(MAKE) -f CMakeFiles/BelkanSG.dir/build.make CMakeFiles/BelkanSG.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles" --progress-num=3,4 "Built target BelkanSG"
@@ -144,8 +144,8 @@ clean: CMakeFiles/GLUILib.dir/clean
 CMakeFiles/Belkan.dir/all: CMakeFiles/obj3DLib.dir/all
 CMakeFiles/Belkan.dir/all: CMakeFiles/motorLib.dir/all
 CMakeFiles/Belkan.dir/all: CMakeFiles/modelosBelkanLib.dir/all
-CMakeFiles/Belkan.dir/all: CMakeFiles/comportamientosLib.dir/all
 CMakeFiles/Belkan.dir/all: CMakeFiles/GLUILib.dir/all
+CMakeFiles/Belkan.dir/all: CMakeFiles/comportamientosLib.dir/all
 	$(MAKE) -f CMakeFiles/Belkan.dir/build.make CMakeFiles/Belkan.dir/depend
 	$(MAKE) -f CMakeFiles/Belkan.dir/build.make CMakeFiles/Belkan.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles" --progress-num=1,2 "Built target Belkan"
@@ -220,8 +220,8 @@ clean: CMakeFiles/obj3DLib.dir/clean
 
 # All Build rule for target.
 CMakeFiles/motorLib.dir/all: CMakeFiles/obj3DLib.dir/all
-CMakeFiles/motorLib.dir/all: CMakeFiles/comportamientosLib.dir/all
 CMakeFiles/motorLib.dir/all: CMakeFiles/GLUILib.dir/all
+CMakeFiles/motorLib.dir/all: CMakeFiles/comportamientosLib.dir/all
 	$(MAKE) -f CMakeFiles/motorLib.dir/build.make CMakeFiles/motorLib.dir/depend
 	$(MAKE) -f CMakeFiles/motorLib.dir/build.make CMakeFiles/motorLib.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/CMakeFiles" --progress-num=55,56,57,58,59,60,61 "Built target motorLib"

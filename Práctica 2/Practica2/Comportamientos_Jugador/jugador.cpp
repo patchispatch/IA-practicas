@@ -6,6 +6,7 @@
 #include <cmath>
 #include <list>
 #include <vector>
+#include <algorithm>
 
 
 bool operator< (const estado &uno, const estado &otro) {
@@ -78,8 +79,6 @@ void ComportamientoJugador::VisualizaPlan(const estado &st, const list<Action> &
 
 
 bool ComportamientoJugador::pathFinding(const estado &origen, const estado &destino, list<Action> &plan) {
-	
-	cout << "Pathfinding en ejecución." << endl;
 
 	/*
 	Usamos una cola con prioridad para abiertos y una matriz de booleanos para cerrados.
@@ -92,9 +91,6 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 	bool abiertos_index[100][100];
 	bool cerrados_index[100][100];
 
-	cout << "Abiertos y cerrados declarado" << endl;
-
-
 	//Inicializamos la matriz de cerrados_index y abiertos_index:
 	for (int i = 0; i < mapaResultado.size(); ++i) {
 		for (int j = 0; j < mapaResultado.size(); ++j) {
@@ -103,8 +99,6 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 		}
 	}
 
-
-	cout << "Index inicializados" << endl;
 
 	//Usamos también una lista ruta, para almacenar el path conforme lo calculamos. Después lo usaremos para definir el plan.
 	list<estado> ruta;
@@ -126,13 +120,17 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 
 	//Para calcular el coste de las casillas, asignamos el coste de la primera posición a 0:
 	actual.coste_g = 0;
-
-	cout << "Antes del while completado" << endl;
+	actual.coste_f = h(actual);
 
 
 	//Proceso de búsqueda:
 	while (!(cerrados_index[destino.fila][destino.columna]) && !abiertos.empty()) {
-		cerrados_index[actual.fila][actual.columna] = true;
+
+		//Ordenamos la lista de abiertos. Como hemos sobrecargado el operator<, se ordenan por el coste f:
+		abiertos.sort();
+
+		//Asignamos el menor, es decir, el primero, como actual:
+		actual = abiertos.front();
 
 		//Pasamos actual de abiertos a cerrados. Como abiertos está ordenado según f(), actual estará al frente.
 		abiertos.pop_front();
@@ -153,7 +151,7 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 		--e4.columna;
 
 		//Establecemos actual como padre de los vecinos:
-		e1.padre = &actual;
+
 		e2.padre = &actual;
 		e3.padre = &actual;
 		e4.padre = &actual;
@@ -167,18 +165,23 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 					cerrados_index[e1.fila][e1.columna] = true;
 					cerrados.push_back(e1);
 
-					cout << "Añadido nodo a cerrados." << endl;
 				}
 
 				else {
 					abiertos_index[e1.fila][e1.columna] = true;
 					abiertos.push_back(e1);
 
-					cout << "Añadido nodo a abiertos." << endl;
-
 					//Calculamos coste f del estado:
 					e1.coste_f = g(e1) + h(e1);
+					e1.padre = &actual;
+
 				}
+			}
+
+			else {
+				auto it = std::find(abiertos.begin(), abiertos.end(), e1);
+				it->padre = &actual;
+				it->coste_f = g(e1) + h(e1);
 			}
 		}
 				
@@ -193,18 +196,23 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 					cerrados_index[e2.fila][e2.columna] = true;
 					cerrados.push_back(e2);
 
-					cout << "Añadido nodo a cerrados." << endl;
 				}
 
 				else {
 					abiertos_index[e2.fila][e2.columna] = true;
 					abiertos.push_back(e2);
 
-					cout << "Añadido nodo a abiertos." << endl;
-
 					//Calculamos coste f del estado:
 					e2.coste_f = g(e2) + h(e2);
+					e2.padre = &actual;
+
 				}
+			}
+			
+			else {
+				auto it = std::find(abiertos.begin(), abiertos.end(), e2);
+				it->padre = &actual;
+				it->coste_f = g(e2) + h(e2);
 			}
 		}
 
@@ -216,18 +224,23 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 					cerrados_index[e3.fila][e3.columna] = true;
 					cerrados.push_back(e3);
 
-					cout << "Añadido nodo a cerrados." << endl;
 				}
 
 				else {
 					abiertos_index[e3.fila][e3.columna] = true;
 					abiertos.push_back(e3);
 
-					cout << "Añadido nodo a abiertos." << endl;
-
 					//Calculamos coste f del estado:
 					e3.coste_f = g(e3) + h(e3);
+					e3.padre = &actual;
+
 				}
+			}
+
+			else {
+				auto it = std::find(abiertos.begin(), abiertos.end(), e3);
+				it->padre = &actual;
+				it->coste_f = g(e3) + h(e3);
 			}
 		}
 
@@ -239,33 +252,38 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 					cerrados_index[e4.fila][e4.columna] = true;
 					cerrados.push_back(e4);
 
-					cout << "Añadido nodo a cerrados." << endl;
 				}
 
 				else {
 					abiertos_index[e4.fila][e4.columna] = true;
 					abiertos.push_back(e4);
 
-					cout << "Añadido nodo a abiertos." << endl;
-
 					//Calculamos coste f del estado:
 					e4.coste_f = g(e4) + h(e4);
+					e4.padre = &actual;
 				}
 			}
+
+			else {
+				auto it = std::find(abiertos.begin(), abiertos.end(), e4);
+				it->padre = &actual;
+				it->coste_f = g(e4) + h(e4);
+			}
 		}
+	}
 
-		//Ordenamos la lista de abiertos. Como hemos sobrecargado el operator<, se ordenan por el coste f:
-		abiertos.sort();
-
-		//Asignamos el menor, es decir, el primero, como actual:
-		actual = abiertos.front();
+	//Construimos la ruta:
+	while (actual != origen) {
+		actual = *actual.padre;
 		ruta.push_back(actual);
 	}
 
+	/*
 	for (auto it = ruta.begin(); it != ruta.end(); ++it) {
 		cout << "Se ha creado la casilla " << it->fila << ", " << it->columna << endl;
 	}
-	
+	*/
+
 	//Transformar lista en acciones y guardar en plan
 	list<estado>::const_iterator anterior, siguiente;
 
@@ -436,4 +454,5 @@ int ComportamientoJugador::g(estado e) {
 
 	return g; 
 }
+
   

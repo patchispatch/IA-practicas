@@ -47,16 +47,16 @@ int main(int argc, char ** argv){
     }
     ifile.close();
     // Reviso si es una posicion valida
-    if (mapAux[atoi(argv[4])][atoi(argv[5])] != 'T')
-	cout << "Posicion (" << argv[4] << "," << argv[5] << ") no es de tipo T" << endl;
+    if (mapAux[atoi(argv[4])][atoi(argv[5])] != 'T' and mapAux[atoi(argv[4])][atoi(argv[5])] != 'S')
+	    cout << "Posicion (" << argv[4] << "," << argv[5] << ") no es de tipo válido para el jugador" << endl;
 
     monitor.inicializar(atoi(argv[4]), atoi(argv[5]));
-    monitor.setPasos(50);
+    monitor.setPasos(2000);
     monitor.setRetardo(0);
-    
+
     // Reviso si es una posicion valida
-    if (mapAux[atoi(argv[6])][atoi(argv[7])] != 'T')
-	cout << "Posicion (" << argv[6] << "," << argv[7] << ") no es de tipo T" << endl;
+    if (mapAux[atoi(argv[6])][atoi(argv[7])] != 'T' and mapAux[atoi(argv[6])][atoi(argv[7])] != 'S')
+	     cout << "Posicion (" << argv[6] << "," << argv[7] << ") no es de tipo válido para el objetivo" << endl;
 
     monitor.setObjX(atoi(argv[6]));
     monitor.setObjY(atoi(argv[7]));
@@ -67,14 +67,14 @@ int main(int argc, char ** argv){
 
     if (argc > i+1) {
 	// Reviso si es una posicion valida
-    	if (mapAux[atoi(argv[i])][atoi(argv[i+1])] != 'T')
-		cout << "Posicion (" << argv[i] << "," << argv[i+1] << ") no es de tipo T" << endl;
+    	if (mapAux[atoi(argv[i])][atoi(argv[i+1])] != 'T' and mapAux[atoi(argv[i])][atoi(argv[i+1])] != 'S')
+		cout << "Posicion (" << argv[i] << "," << argv[i+1] << ") no es de tipo válido para el objetivo" << endl;
 	listo.push_back(pair<int,int>(atoi(argv[i]),atoi(argv[i+1])));
 	i += 2;
     }
 
     monitor.setListObj(listo);
-	
+
     monitor.juegoInicializado();
 
     lanzar_motor_juego2(monitor);

@@ -58,6 +58,7 @@ bool MonitorJuego::inicializarJuego() {
   return aux;
 }
 
+
 void MonitorJuego::decPasos(GLUI_EditText * editPosX, GLUI_EditText * editPosY) {
   if (get_entidad(0)->fin()) {
     if (nivel < 3) {
@@ -79,24 +80,24 @@ void MonitorJuego::decPasos(GLUI_EditText * editPosX, GLUI_EditText * editPosY) 
             miy = aleatorio(getMapa()->getNFils()-1);
             mix = aleatorio(getMapa()->getNCols()-1);
 
-            celdaRand = getMapa()->getCelda(mix, miy);
+            celdaRand = getMapa()->getCelda(miy, mix);
           }
-          while(not(((celdaRand == 'T') and getMapa()->entidadEnCelda(mix, miy) == '_')));
+          while(not(((celdaRand == 'T' or celdaRand == 'S') and getMapa()->entidadEnCelda(miy, mix) == '_')));
 
           setObjX(mix);
           setObjY(miy);
           if (editPosX != NULL)
-          editPosX->set_int_val(miy);
+          editPosX->set_int_val(mix);
           if (editPosY != NULL)
-          editPosY->set_int_val(mix);
-          cout << "Nuevo objetivo: (" << mix << "," << miy << ")" << endl;
+          editPosY->set_int_val(miy);
+          cout << "Nuevo objetivo: (" << miy << "," << mix << ")" << endl;
           get_entidad(0)->resetFin();
 
           if (pasos > 0) {
             pasos--;
+            pasosTotales++;
           }
 
-          pasosTotales++;
         }
         else {
           pair<int,int> aqui = objetivos.front();
@@ -107,9 +108,9 @@ void MonitorJuego::decPasos(GLUI_EditText * editPosX, GLUI_EditText * editPosY) 
 
           if (pasos > 0) {
             pasos--;
+            pasosTotales++;
           }
 
-          pasosTotales++;
         }
       }
     }
@@ -117,9 +118,9 @@ void MonitorJuego::decPasos(GLUI_EditText * editPosX, GLUI_EditText * editPosY) 
   else {
     if (pasos > 0) {
       pasos--;
+      pasosTotales++;
     }
 
-    pasosTotales++;
 
     if ((maxPasos - pasosTotales) <= 0) {
       jugando = false;
@@ -151,19 +152,19 @@ void MonitorJuego::inicializar(int mix, int miy) {
 
   //Primero SIEMPRE se coloca al jugador. SIEMPRE.
   if ((mix == -1) or (miy == -1)) {
-	  do {
-	    mix = aleatorio(getMapa()->getNFils()-1);
-	    miy = aleatorio(getMapa()->getNCols()-1);
+    do {
+      mix = aleatorio(getMapa()->getNFils()-1);
+      miy = aleatorio(getMapa()->getNCols()-1);
 
-	   celdaRand = getMapa()->getCelda(mix, miy);
-	 }
-	 while(not(((celdaRand == 'T') and getMapa()->entidadEnCelda(mix, miy) == '_')));
+      celdaRand = getMapa()->getCelda(mix, miy);
+    }
+    while( (celdaRand != 'T') or (celdaRand != 'T') or (getMapa()->entidadEnCelda(mix, miy) != '_') );
   }
   if ((nivel == 1) or (nivel == 2)) {
     vector< vector< unsigned char> > mAux(getMapa()->getNFils(), vector< unsigned char>(getMapa()->getNCols(), '?'));
     for (int i = 0; i < getMapa()->getNFils(); i++)
-	for (int j = 0; j < getMapa()->getNCols(); j++)
-		mAux[i][j] = getMapa()->getCelda(i, j);
+    for (int j = 0; j < getMapa()->getNCols(); j++)
+    mAux[i][j] = getMapa()->getCelda(i, j);
 
     nueva_entidad(new Entidad(jugador, jugador_, norte, mix, miy, new Jugador3D(""), new ComportamientoJugador(mAux), objX, objY, 500));
   }
@@ -187,5 +188,5 @@ void MonitorJuego::inicializar(int mix, int miy) {
 
   get_entidad(0)->setVision(getMapa()->vision(0));
   if ((nivel == 1) or (nivel == 2))
-	get_entidad(0)->notify();
+  get_entidad(0)->notify();
 }

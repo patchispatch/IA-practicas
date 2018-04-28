@@ -13,7 +13,7 @@ void Entidad::resetEntidad() {
   colisiones = 0;
   reset = true;
   if (vida != 0) muertes_innecesarias++;
-  vida = 500;
+  vida = 0;
   done = false;
 
   mensaje = true;

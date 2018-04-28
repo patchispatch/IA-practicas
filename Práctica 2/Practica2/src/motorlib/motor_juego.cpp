@@ -22,7 +22,7 @@ bool actuacionJugador(unsigned char celda, Action accion, unsigned int x, unsign
             do {
                 mix = aleatorio(monitor.getMapa()->getNFils()-1);
                 miy = aleatorio(monitor.getMapa()->getNCols()-1);
-  
+
                 celdaRand = monitor.getMapa()->getCelda(mix, miy);
             }
             while( not(((celdaRand == 'T') and monitor.getMapa()->entidadEnCelda(mix, miy) == '_')) );
@@ -41,9 +41,9 @@ bool actuacionJugador(unsigned char celda, Action accion, unsigned int x, unsign
       }
       else{
         monitor.get_entidad(0)->seAostio();
-        if (monitor.get_entidad(monitor.getMapa()->casillaOcupada(0))->getSubTipo() == aldeano) {
+        /*if (monitor.get_entidad(monitor.getMapa()->casillaOcupada(0))->getSubTipo() == aldeano) {
             monitor.get_entidad(0)->perderPV(1);
-        }
+        }*/
         salida = false;
       }
     break;
@@ -238,14 +238,14 @@ void nucleo_motor_juego(MonitorJuego &monitor, int acc, GLUI_EditText * editPosX
   if (monitor.numero_entidades() > 0) {
     unsigned int xRand, yRand;
     if (not(monitor.get_entidad(0)->vivo())) {
-     do {
-	xRand = aleatorio(monitor.getMapa()->getNFils()-1);
-	yRand = aleatorio(monitor.getMapa()->getNCols()-1);
+      do {
+        xRand = aleatorio(monitor.getMapa()->getNFils()-1);
+        yRand = aleatorio(monitor.getMapa()->getNCols()-1);
 
-	celdaRand = monitor.getMapa()->getCelda(xRand,yRand);
-     }
-     while(not(((celdaRand == 'T') and monitor.getMapa()->entidadEnCelda(xRand, yRand) == '_')) );
- 
+        celdaRand = monitor.getMapa()->getCelda(xRand,yRand);
+      }
+      while(not(((celdaRand == 'T') and monitor.getMapa()->entidadEnCelda(xRand, yRand) == '_')) );
+
       monitor.get_entidad(0)->setPosicion(xRand, yRand);
       monitor.get_entidad(0)->setOrientacion(norte);
       monitor.get_entidad(0)->setObjetivo(monitor.getObjX(), monitor.getObjY());
@@ -254,7 +254,7 @@ void nucleo_motor_juego(MonitorJuego &monitor, int acc, GLUI_EditText * editPosX
   }
 
   if (acc != -1) {
- 	 sleep(monitor.getRetardo() / 10);
+    sleep(monitor.getRetardo() / 10);
   }
 }
 
@@ -264,8 +264,34 @@ bool lanzar_motor_juego(int & colisiones, int acc, GLUI_EditText * editPosX, GLU
   if (monitor.continuarBelkan()) {
     if (monitor.jugar()) {
       if ((monitor.getPasos() != 0) and (!monitor.finJuego())) {
+        unsigned char celdaRand;
+        if (monitor.getObjY() >= monitor.getMapa()->getNFils() or monitor.getObjX() >= monitor.getMapa()->getNCols()){
+          celdaRand = 'A';
+        }
+        else {
+          celdaRand = monitor.getMapa()->getCelda(monitor.getObjY(), monitor.getObjX());
+        }
+
+        if (celdaRand != 'T' and celdaRand != 'S'){
+          int mix = -1, miy = -1;
+          do {
+            miy = aleatorio(monitor.getMapa()->getNFils()-1);
+            mix = aleatorio(monitor.getMapa()->getNCols()-1);
+
+            celdaRand = monitor.getMapa()->getCelda(miy, mix);
+          }
+          while(not(((celdaRand == 'T' or celdaRand == 'S') and monitor.getMapa()->entidadEnCelda(miy, mix) == '_')));
+
+          monitor.setObjX(mix);
+          monitor.setObjY(miy);
+          if (editPosX != NULL)
+          editPosX->set_int_val(mix);
+          if (editPosY != NULL)
+          editPosY->set_int_val(miy);
+          cout << "Cambiado el objetivo\n";
+        }
         nucleo_motor_juego(monitor, acc, editPosX, editPosY);
-	colisiones += monitor.get_entidad(0)->getColisiones();
+	      colisiones += monitor.get_entidad(0)->getColisiones();
       }
     }
 
