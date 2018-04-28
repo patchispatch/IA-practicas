@@ -16,6 +16,22 @@ void Mapa::colorCeldaMM(unsigned char celda) {
   }
 }
 
+void Mapa::colorCeldaOpuestoMM(unsigned char celda) {
+  switch (celda) {
+    case 'P': glColor3f(1,1,1); break;
+    case 'B': glColor3f(0,0,0); break;
+    case 'A': glColor3f(0.0,0.0,0.0); break;
+    case 'S': glColor3f(0,0,0); break;
+    case 'M': glColor3f(1,1,1); break;
+    case 'T': glColor3f(1,1,1); break;
+    case 'K': glColor3f(0,0,0); break;
+    case 'Z': glColor3f(1,1,1); break;
+    case 'D': glColor3f(1,1,1); break;
+    case 'X': glColor3f(0,0,0); break;
+    default: glColor3f(0.0,0.0,0.0); break;
+  }
+}
+
 
 void Mapa::OrientacionEntidadMM(Orientacion orienParam) {
   switch (orienParam) {
@@ -101,7 +117,7 @@ void Mapa::drawMM1(int x, int y) {
 
   float ratio = 1.0;
   if(mapaCompleto.size() > 15) {
-    ratio = 15.0 / (float) mapaCompleto.size();
+    ratio = 20.0 / (float) mapaCompleto.size();
   }
 
   for (unsigned int i = 0; i < mapaCompleto.size(); i++) {
@@ -121,15 +137,16 @@ void Mapa::drawMM1(int x, int y) {
         glEnd();
 
         if (mapaConPlan[j][i]>0){
-          glColor3f(1.0,1.0,1.0);
+          /*glColor3f(1.0,1.0,1.0);
           glBegin(GL_QUADS);
             glVertex3f(0.0, -0.5, 0.0);
             glVertex3f(-0.5, 0.0, 0.0);
             glVertex3f( 0.0, 0.5, 0.0);
             glVertex3f( 0.5, 0.0, 0.0);
-          glEnd();
+          glEnd();*/
 
-          glColor3f(0.0,0.0,0.0);
+          //glColor3f(0.0,1.0,1.0);
+          colorCeldaOpuestoMM(mapaCompleto[j][i]);
           glBegin(GL_QUADS);
           glVertex3f(0.0, -0.3, 0.0);
           glVertex3f(-0.3, 0.0, 0.0);
@@ -184,7 +201,7 @@ void  Mapa::drawMM2(int x, int y) {
 
    float ratio = 1.0;
    if(mapaCompleto.size() > 15) {
-     ratio = 15.0 / (float) mapaCompleto.size();
+     ratio = 20.0 / (float) mapaCompleto.size();
    }
 
    for (unsigned int i = 0; i < mapaCompleto.size(); i++) {
@@ -204,15 +221,16 @@ void  Mapa::drawMM2(int x, int y) {
         glEnd();
 
         if (mapaConPlan[j][i]>0){
-          glColor3f(1.0,1.0,1.0);
+          /*glColor3f(1.0,1.0,1.0);
           glBegin(GL_QUADS);
             glVertex3f(0.0, -0.5, 0.0);
             glVertex3f(-0.5, 0.0, 0.0);
             glVertex3f( 0.0, 0.5, 0.0);
             glVertex3f( 0.5, 0.0, 0.0);
-          glEnd();
+          glEnd();*/
 
-          glColor3f(0.0,0.0,0.0);
+          //glColor3f(0.0,1.0,1.0);
+          colorCeldaOpuestoMM(mapaSuperficie[j][i]);
           glBegin(GL_QUADS);
           glVertex3f(0.0, -0.3, 0.0);
           glVertex3f(-0.3, 0.0, 0.0);
@@ -269,7 +287,17 @@ void Mapa::drawFirstPerson() {
   }
 
   //Camara
-  gluLookAt(((GLfloat) colMed - (GLfloat) x) * 5.0, 3.75, ((GLfloat) filaMed - (GLfloat) z) * 5.0, (((GLfloat) colMed - (GLfloat) x) * 5.0 ) + sin((angulo * 2.0 * M_PI)/360.0), 3.5, (((GLfloat) filaMed - (GLfloat) z) * 5.0) - cos((angulo * 2.0 * M_PI)/360.0), 0.0, 1.0, 0.0);
+  gluLookAt(
+            ((GLfloat) colMed - (GLfloat) x) * (5.0),
+            3.5+Y2,
+            ((GLfloat) filaMed - (GLfloat) z) * 5.0,
+            (((GLfloat) colMed - (GLfloat) x) * (5.0)) + sin((angulo * 2.0 * M_PI)/360.0),
+            3.4-Y1,
+            (((GLfloat) filaMed - (GLfloat) z) * 5.0) - cos((angulo * 2.0 * M_PI)/360.0),
+            0.0,
+            3.3,
+            0.0
+          );
 
   int fs = x-15; if (fs<0) fs=0;
   int fi = x+15; if (fi>=mapaCompleto.size()) fi=mapaCompleto.size()-1;
@@ -311,7 +339,7 @@ void Mapa::drawFirstPerson() {
         if (mapaConPlan[j][i]==1){
           glColor3f(1.0,0.0,0.0);
           glScalef(1.0, 1.2, 1.0);
-          glutSolidSphere(0.5,50,50);
+          glutSolidSphere(0.43,50,50);
           //glutSolidCube(0.2);
         }
       }

@@ -38,8 +38,6 @@ class Comportamiento {
 
     virtual int interact(Action accion, int valor);
 
-
-
     vector< vector< unsigned char> > getMapaResultado(){return mapaResultado;}
     vector< vector< unsigned char> > getMapaEntidades(){return mapaEntidades;}
     vector< vector< unsigned char> > getMapaPlan(){return mapaConPlan;}

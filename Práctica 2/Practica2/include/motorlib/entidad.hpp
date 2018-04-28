@@ -109,7 +109,7 @@ class Entidad {
 	  void setResetOff() {reset = false;}
 	  void setHitbox(bool valor) {hitbox=valor;}
 
-          bool fin() {return done;}
+    bool fin() {return done;}
 	  void resetFin() {done = false;}
 };
 #endif

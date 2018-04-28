@@ -24,23 +24,34 @@ int nPasos = 10, tRetardo = 1, MMmode = 0, posX = 1, posY = 1, tMap = 100, colis
 void irAlJuego(int valor);
 
 /*void keyboard(unsigned char key, int x, int y) {
+  float a;
   switch(key) {
     case 'w': // UP
-      monitor.setPasos(1);
-      lanzar_motor_juego(colisiones, 0);
-      cout << "Avanzar\n";
+      a = monitor.getMapa()->getAngle();
+      a = a + 0.01;
+      cout << "Y1: " << a << endl;
+      monitor.getMapa()->putAngle(a);
       break;
 
-    case 'd': // DCHA
-      monitor.setPasos(1);
-      lanzar_motor_juego(colisiones, 2);
-      cout << "Derecha\n";
+    case 's': // DCHA
+      a = monitor.getMapa()->getParamX();
+      a = a + 0.01;
+      cout << "Y2: " << a << endl;
+      monitor.getMapa()->PutParamX(a);
       break;
 
     case 'a': // IZQDA
-      monitor.setPasos(1);
-      lanzar_motor_juego(colisiones, 1);
-      cout << "Izquierda\n";
+      a = monitor.getMapa()->getParamZ();
+      a = a + 0.01;
+      cout << "Y3: " << a << endl;
+      monitor.getMapa()->PutParamZ(a);
+      break;
+
+    case 'd': // IZQDA
+      a = monitor.getMapa()->getParamZ();
+      a = a - 0.01;
+      cout << "Y3: " << a << endl;
+      monitor.getMapa()->PutParamZ(a);
       break;
 
     default: // Paranoia
@@ -227,7 +238,7 @@ void irAlJuego(int valor) {
     botonSalir->enable();
     colisiones = 0;
   }
-  // glutKeyboardFunc(keyboard);
+  //glutKeyboardFunc(keyboard);
   glutTimerFunc(1, update, 0);
 }
 
@@ -333,7 +344,7 @@ void botonPasoCB(int valor) {
 }
 
 void botonEjecucionCB(int valor) {
-  monitor.setPasos(-1);
+  monitor.setPasos(2000);
 }
 
 void botonEjecutarCB(int valor) {
@@ -358,20 +369,19 @@ void botonSalirCB(int valor) {
 }
 
 void mouseClick(int button, int state, int x, int y) {
-    int tx, ty, tw, th;
-    GLUI_Master.get_viewport_area( &tx, &ty, &tw, &th );
-    int nx = round(((round((x * 1.0 / tw) * 100) - 12) / (87 - 12.0)) * 100);
-    int ny = round(((round((y * 1.0 / th) * 100) - 12) / (87 - 12.0)) * 100);
-    nx = (nx * 1.0) / 100 * tMap;
-    ny = (ny * 1.0) / 100 * tMap;
+  int tx, ty, tw, th;
+  GLUI_Master.get_viewport_area( &tx, &ty, &tw, &th );
+  int nx = round(x * tMap * 1.0 / tw);
+  int ny = round(y * tMap * 1.0 / th);
 
-    if ((button == GLUT_LEFT_BUTTON) and (state == GLUT_DOWN)) {      if ((nx >= 0) and (nx <= tMap-1) and (ny >= 0) and (ny <= tMap-1)) {
-	editPosY->set_int_val(ny);
-	editPosX->set_int_val(nx);
-	setPosY(ny);
-	setPosX(nx);
-      }
-    }
+  if ((button == GLUT_LEFT_BUTTON) and (state == GLUT_DOWN)) {
+    if ((nx >= 0) and (nx <= tMap-1) and (ny >= 0) and (ny <= tMap-1)) {
+    editPosY->set_int_val(ny);
+    editPosX->set_int_val(nx);
+    setPosY(ny);
+    setPosX(nx);
+  }
+}
 }
 
 void lanzar_motor_grafico(int argc, char **argv) {
@@ -431,7 +441,7 @@ void lanzar_motor_grafico(int argc, char **argv) {
     editPosX->set_alignment(GLUI_ALIGN_CENTER);
     editPosY->set_alignment(GLUI_ALIGN_CENTER);
 
-    lineaVacia = panelIU->add_statictext("");
+    //lineaVacia = panelIU->add_statictext("");
 
     GLUI_Panel *run_panel = panelIU->add_panel("Control");
 
@@ -446,7 +456,7 @@ void lanzar_motor_grafico(int argc, char **argv) {
     editTextRetardo->set_alignment(GLUI_ALIGN_CENTER);
     setRetardo(tRetardo);
 
-    lineaVacia = panelIU->add_statictext_to_panel(run_panel, "");
+    //lineaVacia = panelIU->add_statictext_to_panel(run_panel, "");
 
     botonPaso = panelIU->add_button_to_panel(run_panel, "Paso", 0, botonPasoCB);
     botonPaso->set_alignment(GLUI_ALIGN_CENTER);
@@ -476,7 +486,7 @@ void lanzar_motor_grafico(int argc, char **argv) {
     info8 = panelIU->add_statictext_to_panel(panelInfo, "");
     info9 = panelIU->add_statictext_to_panel(panelInfo, "");
 
-    panelIU->add_separator_to_panel(panelInfo);
+    //panelIU->add_separator_to_panel(panelInfo);
 
     lineaVacia = panelIU->add_statictext("");
 

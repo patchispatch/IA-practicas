@@ -48,7 +48,15 @@ class MonitorJuego {
     Mapa * getMapa() {return mapa;}
     void setMapa(char * file);
 
-    void startGame(int valor = 1) {empezarJuego = true; pasosTotales = 0; pasos = 0; nivel = valor;} //Indica que hay un nuevo juego que inicializar
+    void startGame(int valor = 1) {  //Indica que hay un nuevo juego que inicializar
+      empezarJuego = true; pasosTotales = 0; pasos = 0; nivel = valor;
+      if (nivel != 3){
+        maxPasos = 500;
+      }
+      else {
+        maxPasos = 2000;
+      }
+    }
     bool inicializarJuego(); //Mira si tiene que inicializar un juego
     int juegoInicializado() {jugando = true; return mapa->getNFils();}
 
