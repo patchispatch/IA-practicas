@@ -150,11 +150,6 @@ bool ComportamientoJugador::pathFinding(const estado &origen, const estado &dest
 		++e3.columna;
 		--e4.columna;
 
-		//Establecemos actual como padre de los vecinos:
-
-		e2.padre = &actual;
-		e3.padre = &actual;
-		e4.padre = &actual;
 
 		//Analizamos dichos estados vecinos uno a uno:
 		if(!cerrados_index[e1.fila][e1.columna]) {
