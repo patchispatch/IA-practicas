@@ -27,6 +27,10 @@ comportamientos/comportamiento.hpp
 Comportamientos_Jugador/comportamientos/comportamiento.hpp
 list
 -
+queue
+-
+vector
+-
 
 include/comportamientolib.hpp
 comportamientos/comportamiento.hpp

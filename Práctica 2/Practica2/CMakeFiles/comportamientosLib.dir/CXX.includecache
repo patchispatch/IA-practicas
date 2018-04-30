@@ -23,7 +23,7 @@ comportamientos/comportamiento.hpp
 /home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/comportamientos/comportamiento.hpp
 
 /home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/jugador.cpp
-jugador.hpp
+../Comportamientos_Jugador/jugador.hpp
 /home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/jugador.hpp
 motorlib/util.h
 /home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/motorlib/util.h
@@ -31,17 +31,15 @@ iostream
 -
 cmath
 -
-list
--
-vector
--
-algorithm
--
 
 /home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/jugador.hpp
 comportamientos/comportamiento.hpp
 /home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/Comportamientos_Jugador/comportamientos/comportamiento.hpp
 list
+-
+queue
+-
+vector
 -
 
 /home/patchispatch/Documentos/Informática/2º/IA/IA-practicas/Práctica 2/Practica2/src/comportamientos/comportamiento.cpp

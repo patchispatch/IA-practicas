@@ -1,22 +1,12 @@
-//#include "../Comportamientos_Jugador/jugador.hpp"
-#include "jugador.hpp"
+#include "../Comportamientos_Jugador/jugador.hpp"
 #include "motorlib/util.h"
-
 #include <iostream>
 #include <cmath>
-#include <list>
-#include <vector>
-#include <algorithm>
 
-
-bool operator< (const estado &uno, const estado &otro) {
-
-	return uno.coste_f < otro.coste_f;
-}
-
+//Operadores
 bool operator== (const estado &uno, const estado &otro) {
 
-	return uno.fila == otro.fila && uno.columna == otro.columna;
+	return (uno.fila == otro.fila && uno.columna == otro.columna);
 }
 
 bool operator!= (const estado &uno, const estado &otro) {
@@ -43,6 +33,357 @@ void ComportamientoJugador::PintaPlan(list<Action> plan) {
 	}
 	cout << endl;
 }
+
+bool ComportamientoJugador::pathFinding(const estado &origen, const estado &destino, list<Action> &plan) {
+	
+	//Borramos el plan anterior:
+	plan.clear();
+
+	//Lanzamos la búsqueda:
+	list<estado> estados = BusquedaAnchura(origen, destino);
+
+	for(auto it=estados.begin(); it != estados.end(); ++it)
+		cout << "casilla[" << (*it).fila << "][ " << (*it).columna << "]" << endl;;
+
+
+	plan = trazadoPlan(estados);
+
+	PintaPlan(plan);
+	VisualizaPlan(origen, plan);
+
+	return !plan.empty();
+}
+
+list<estado> ComportamientoJugador::BusquedaAnchura(const estado &origen, const estado &destino) {
+
+	bool abiertos_index[mapaResultado.size()][mapaResultado.size()];
+	bool cerrados_index[mapaResultado.size()][mapaResultado.size()];
+	queue<estado> abiertos;
+	list<estado> ruta;
+
+	bool encontrado = false;
+
+	for(int i=0; i<mapaResultado.size(); ++i) {
+		for(int j=0; j<mapaResultado.size(); ++j) {
+			cerrados_index[i][j] = false;
+			abiertos_index[i][j] = false;
+		}
+	}
+
+	abiertos.push(origen);
+	abiertos_index[origen.fila][origen.columna] = true;
+
+	while(!abiertos.empty() && !encontrado) {
+		
+		estado actual = abiertos.front();
+		abiertos.pop();
+
+		if(actual.fila == destino.fila && actual.columna == destino.columna) {
+			ruta = actual.recorrido;
+			ruta.push_back(actual);
+			encontrado = true;
+		}
+
+		else {
+			cerrados_index[actual.fila][actual.columna] = true;
+			
+			for(int i=0; i<4; i++) {
+
+				int fil_aux = actual.fila;
+				int	col_aux = actual.columna; 
+				int	or_aux = i;
+
+				//Definimos la orientación del estado adyacente:
+				switch(i) {
+
+					//NORTE:
+					case 0: 
+						--fil_aux;
+					break;
+
+					//ESTE:
+					case 1: 
+						++col_aux;
+					break;
+
+					//SUR:
+					case 2:
+						++fil_aux;
+					break;
+
+					//OESTE:
+					case 3:
+						--col_aux;
+					break;
+				}
+
+				//Creamos los estados adyacentes según la iteración:
+				estado adyacente;
+				adyacente.fila = fil_aux;
+				adyacente.columna = col_aux;
+				adyacente.orientacion = or_aux;
+
+				//Si el estado no se encuentra en abiertos o en cerrados, lo metemos en abiertos:
+				if(!abiertos_index[fil_aux][col_aux] && !cerrados_index[fil_aux][col_aux]
+				   && suelo(fil_aux, col_aux)) {
+
+					for (auto it = actual.recorrido.begin(); it != actual.recorrido.end(); ++it) {
+						it->recorrido.clear();
+						adyacente.recorrido.push_back(*it);
+					}
+
+					adyacente.recorrido.push_back(actual);
+					abiertos.push(adyacente);
+					abiertos_index[adyacente.fila][adyacente.columna] = true;
+				}
+			}
+		}
+
+		actual.recorrido.clear();
+	}
+
+	return ruta;
+}
+
+list<Action> ComportamientoJugador::trazadoPlan(const list<estado> &lista) {
+	
+	list<Action> resultado;
+	list<estado>::const_iterator anterior = lista.begin();
+	list<estado>::const_iterator siguiente = lista.begin();
+
+	while(*siguiente != lista.back()) {
+		
+		++siguiente;
+
+		//Si mira hacia el norte:
+		if(anterior->fila > siguiente->fila) {
+			
+			switch(anterior->orientacion) {
+				
+				//ESTE:
+				case 1:
+					resultado.push_back(actTURN_L);
+				break;
+
+				//SUR:
+				case 2:
+					resultado.push_back(actTURN_L);
+					resultado.push_back(actTURN_L);
+				break;
+
+				//OESTE:
+				case 3:
+					resultado.push_back(actTURN_R);
+				break;
+			}
+
+			resultado.push_back(actFORWARD);
+		}
+
+		//Si mira hacia el sur:
+		else if(anterior->fila < siguiente->fila) {
+			
+			switch(anterior->orientacion) {
+
+				//NORTE:
+				case 0:
+					resultado.push_back(actTURN_L);
+					resultado.push_back(actTURN_L);
+				break;
+
+				//ESTE:
+				case 1:
+					resultado.push_back(actTURN_R);
+				break;
+				
+				//OESTE:
+				case 3:
+					resultado.push_back(actTURN_L);
+				break;
+			}
+
+			resultado.push_back(actFORWARD);
+		}
+
+		//Si mira hacia el oeste:
+		else if(anterior->columna > siguiente->columna) {
+			
+			switch(anterior->orientacion) {
+
+				//NORTE:
+				case 0: 
+					resultado.push_back(actTURN_L);
+				break;
+
+				//ESTE
+				case 1:
+					resultado.push_back(actTURN_L);
+					resultado.push_back(actTURN_L);
+				break;
+
+				//SUR:
+				case 2:
+					resultado.push_back(actTURN_R);
+				break;
+			}
+
+			resultado.push_back(actFORWARD);
+		}
+
+		else if(anterior->columna < siguiente->columna) {
+			
+			switch(anterior->orientacion) {
+
+				//NORTE:
+				case 0:
+					resultado.push_back(actTURN_R);
+				break;
+
+				//SUR:
+				case 2:
+					resultado.push_back(actTURN_L);
+				break;
+
+				//OESTE:
+				case 3:
+					resultado.push_back(actTURN_L);
+					resultado.push_back(actTURN_L);
+				break;
+			}
+
+			resultado.push_back(actFORWARD);
+		}
+
+		++anterior;
+	}
+
+	return resultado;
+}
+
+bool ComportamientoJugador::suelo(int fila, int columna) {
+	
+	return (mapaResultado[fila][columna] == 'S' || 
+			mapaResultado[fila][columna] == 'T' || 
+			mapaResultado[fila][columna] == 'K' ||
+			mapaResultado[fila][columna] == '?' ||
+			mapaResultado[fila][columna] == 'a');
+}
+
+Action ComportamientoJugador::think(Sensores sensores) {
+	
+	if (sensores.mensajeF != -1 && primera_vez) {
+		fil = sensores.mensajeF;
+		col = sensores.mensajeC;
+		primera_vez = false;
+	}
+
+	// Actualizar el efecto de la ultima accion
+	switch (ultimaAccion){
+		case actTURN_R: brujula = (brujula+1)%4; break;
+		case actTURN_L: brujula = (brujula+3)%4; break;
+		case actFORWARD:
+			switch (brujula){
+				case 0: fil--; break;
+				case 1: col++; break;
+				case 2: fil++; break;
+				case 3: col--; break;
+			}
+			cout << "fil: " << fil << "  col: " << col << " Or: " << brujula << endl;
+	}
+
+
+
+	// Determinar si ha cambiado el destino desde la ultima planificacion
+	if (hayPlan and (sensores.destinoF != destino.fila or sensores.destinoC != destino.columna)){
+		cout << "El destino ha cambiado\n";
+		hayPlan = false;
+	}
+
+	// Determinar si tengo que construir un plan
+	if (!hayPlan) {
+		estado origen;
+		origen.fila = fil;
+		origen.columna = col;
+		origen.orientacion = brujula;
+
+		destino.fila = sensores.destinoF;
+		destino.columna = sensores.destinoC;
+
+    	hayPlan = pathFinding(origen,destino,plan);
+	}
+
+
+	// Ejecutar el plan
+	Action sigAccion;
+	if (hayPlan and plan.size()>0) {
+		sigAccion = plan.front();
+		plan.erase(plan.begin());
+
+		//Si tenemos un aldeano delante, recalculamos, sustituyendo en el mapa su posición por un muro:
+		if(ultimaAccion == actFORWARD && sensores.superficie[2] == 'a') {
+			int fil_aux = fil;
+			int col_aux = col;
+
+			estado origen;
+			origen.fila = fil;
+			origen.columna = col;
+			origen.orientacion = brujula;
+
+			destino.fila = sensores.destinoF;
+			destino.columna = sensores.destinoC;
+
+			//Calculamos nuestra orientación para saber la casilla en la que se encuentra el aldeano:
+			switch(brujula)
+			{
+				//NORTE:
+				case 0:
+					fil_aux--;
+				break;
+				
+				//ESTE:
+				case 1:
+					col_aux++;
+				break;
+				
+				//SUR:
+				case 2:
+					fil_aux++;
+				break;
+				
+				//OESTE:
+				case 3:
+					col_aux--;
+				break;
+			}
+
+			//Guardamos el terreno original que pisa el aldeano, y e ponemos un disfraz de precipicio:
+			char original = mapaResultado[fil_aux][col_aux];
+			mapaResultado[fil_aux][col_aux] = 'P';
+
+			hayPlan = pathFinding(origen,destino,plan);
+
+			//Recuperamos el terreno original:
+			mapaResultado[fil_aux][col_aux] = original;
+
+			PintaPlan(plan);
+
+			if(!plan.empty()) {
+				sigAccion = plan.front();
+				plan.erase(plan.begin());
+			}
+
+			else
+				sigAccion = actIDLE;
+		}
+	}
+
+	else
+		sigAccion = actIDLE;
+
+	ultimaAccion = sigAccion;
+	return sigAccion;
+}
+
 
 void AnularMatriz(vector<vector<unsigned char> > &m){
 	for (int i=0; i<m[0].size(); i++){
@@ -77,377 +418,6 @@ void ComportamientoJugador::VisualizaPlan(const estado &st, const list<Action> &
 	}
 }
 
-
-bool ComportamientoJugador::pathFinding(const estado &origen, const estado &destino, list<Action> &plan) {
-
-	/*
-	Usamos una cola con prioridad para abiertos y una matriz de booleanos para cerrados.
-	Como siempre sacaremos de abiertos la casilla con menor coste, hemos sobrecargado el operator< para que se ordene así.
-	Para cerrados, usamos una matriz de booleanos del tamaño del mapa, donde si el valor es true, esa casilla no se debe considerar.
-	Cada vez que analicemos un estado, comprobaremos si ya está marcado como cerrado en esta matriz.
-	*/
-	list<estado> abiertos;
-	list<estado> cerrados;
-	bool abiertos_index[100][100];
-	bool cerrados_index[100][100];
-
-	//Inicializamos la matriz de cerrados_index y abiertos_index:
-	for (int i = 0; i < mapaResultado.size(); ++i) {
-		for (int j = 0; j < mapaResultado.size(); ++j) {
-			cerrados_index[i][j] = false;
-			abiertos_index[i][j] = false;
-		}
-	}
-
-
-	//Usamos también una lista ruta, para almacenar el path conforme lo calculamos. Después lo usaremos para definir el plan.
-	list<estado> ruta;
-
-	/*
-	Definimos cuatro estados a partir de uno actual, que en la primera iteración será el origen. Estos estados corresponderán al siguiente esquema:
-
-			e2
-		e4	act	 e3
-			e1
-
-	*/
-	estado e1, e2, e3, e4;
-	estado actual = origen;
-
-	//En el inicio, actual tiene que estar en abiertos:
-	abiertos.push_back(actual);
-	abiertos_index[actual.fila][actual.columna] = true;
-
-	//Para calcular el coste de las casillas, asignamos el coste de la primera posición a 0:
-	actual.coste_g = 0;
-	actual.coste_f = h(actual);
-
-
-	//Proceso de búsqueda:
-	while (!(cerrados_index[destino.fila][destino.columna]) && !abiertos.empty()) {
-
-		//Ordenamos la lista de abiertos. Como hemos sobrecargado el operator<, se ordenan por el coste f:
-		abiertos.sort();
-
-		//Asignamos el menor, es decir, el primero, como actual:
-		actual = abiertos.front();
-
-		//Pasamos actual de abiertos a cerrados. Como abiertos está ordenado según f(), actual estará al frente.
-		abiertos.pop_front();
-		abiertos_index[actual.fila][actual.columna] = false;
-
-		cerrados.push_back(actual);
-		cerrados_index[actual.fila][actual.columna] = true;
-
-		//Asignamos los estados "vecinos" de actual:
-		e1 = actual; 
-		e2 = actual; 
-		e3 = actual; 
-		e4 = actual;
-
-		++e1.fila;
-		--e2.fila;
-		++e3.columna;
-		--e4.columna;
-
-
-		//Analizamos dichos estados vecinos uno a uno:
-		if(!cerrados_index[e1.fila][e1.columna]) {
-			if(!abiertos_index[e1.fila][e1.columna]){
-				if(mapaResultado[e1.fila][e1.columna] != 'S' && mapaResultado[e1.fila][e1.columna] != 'T' && mapaResultado[e1.fila][e1.columna] != 'K' 
-					&& mapaResultado[e1.fila][e1.columna] != '?') {
-					
-					cerrados_index[e1.fila][e1.columna] = true;
-					cerrados.push_back(e1);
-
-				}
-
-				else {
-					abiertos_index[e1.fila][e1.columna] = true;
-					abiertos.push_back(e1);
-
-					//Calculamos coste f del estado:
-					e1.coste_f = g(e1) + h(e1);
-					e1.padre = &actual;
-
-				}
-			}
-
-			else {
-				auto it = std::find(abiertos.begin(), abiertos.end(), e1);
-				it->padre = &actual;
-				it->coste_f = g(e1) + h(e1);
-			}
-		}
-				
-
-
-
-		if(!cerrados_index[e2.fila][e2.columna]) {
-			if(!abiertos_index[e2.fila][e2.columna]){
-				if(mapaResultado[e2.fila][e2.columna] != 'S' && mapaResultado[e2.fila][e2.columna] != 'T' && mapaResultado[e2.fila][e2.columna] != 'K' 
-					&& mapaResultado[e2.fila][e2.columna] != '?') {
-					
-					cerrados_index[e2.fila][e2.columna] = true;
-					cerrados.push_back(e2);
-
-				}
-
-				else {
-					abiertos_index[e2.fila][e2.columna] = true;
-					abiertos.push_back(e2);
-
-					//Calculamos coste f del estado:
-					e2.coste_f = g(e2) + h(e2);
-					e2.padre = &actual;
-
-				}
-			}
-			
-			else {
-				auto it = std::find(abiertos.begin(), abiertos.end(), e2);
-				it->padre = &actual;
-				it->coste_f = g(e2) + h(e2);
-			}
-		}
-
-		if(!cerrados_index[e3.fila][e3.columna]) {
-			if(!abiertos_index[e3.fila][e3.columna]){
-				if(mapaResultado[e3.fila][e3.columna] != 'S' && mapaResultado[e3.fila][e3.columna] != 'T' && mapaResultado[e3.fila][e3.columna] != 'K' 
-					&& mapaResultado[e3.fila][e3.columna] != '?') {
-					
-					cerrados_index[e3.fila][e3.columna] = true;
-					cerrados.push_back(e3);
-
-				}
-
-				else {
-					abiertos_index[e3.fila][e3.columna] = true;
-					abiertos.push_back(e3);
-
-					//Calculamos coste f del estado:
-					e3.coste_f = g(e3) + h(e3);
-					e3.padre = &actual;
-
-				}
-			}
-
-			else {
-				auto it = std::find(abiertos.begin(), abiertos.end(), e3);
-				it->padre = &actual;
-				it->coste_f = g(e3) + h(e3);
-			}
-		}
-
-		if(!cerrados_index[e4.fila][e4.columna]) {
-			if(!abiertos_index[e4.fila][e4.columna]){
-				if(mapaResultado[e4.fila][e4.columna] != 'S' && mapaResultado[e4.fila][e4.columna] != 'T' && mapaResultado[e4.fila][e4.columna] != 'K' 
-					&& mapaResultado[e4.fila][e4.columna] != '?') {
-					
-					cerrados_index[e4.fila][e4.columna] = true;
-					cerrados.push_back(e4);
-
-				}
-
-				else {
-					abiertos_index[e4.fila][e4.columna] = true;
-					abiertos.push_back(e4);
-
-					//Calculamos coste f del estado:
-					e4.coste_f = g(e4) + h(e4);
-					e4.padre = &actual;
-				}
-			}
-
-			else {
-				auto it = std::find(abiertos.begin(), abiertos.end(), e4);
-				it->padre = &actual;
-				it->coste_f = g(e4) + h(e4);
-			}
-		}
-	}
-
-	//Construimos la ruta:
-	while (actual != origen) {
-		actual = *actual.padre;
-		ruta.push_back(actual);
-	}
-
-	/*
-	for (auto it = ruta.begin(); it != ruta.end(); ++it) {
-		cout << "Se ha creado la casilla " << it->fila << ", " << it->columna << endl;
-	}
-	*/
-
-	//Transformar lista en acciones y guardar en plan
-	list<estado>::const_iterator anterior, siguiente;
-
-	for (auto anterior = siguiente = ruta.cbegin(); *siguiente != destino; ++anterior) {
-		++siguiente;
-
-		if(anterior->fila < siguiente->fila) {
-			switch(anterior->orientacion) {
-				case 0:
-					plan.push_back(actTURN_L);
-					plan.push_back(actTURN_L);
-				break;
-
-				case 1:
-					plan.push_back(actTURN_R);
-				break;
-
-				case 2:
-				break;
-
-				case 3:
-					plan.push_back(actTURN_L);
-				break;
-			}
-		}
-
-		else if(anterior->fila > siguiente->fila) {
-			switch(anterior->orientacion) {
-				case 0:
-				break;
-
-				case 1:
-					plan.push_back(actTURN_L);
-				break;
-
-				case 2:
-					plan.push_back(actTURN_L);
-					plan.push_back(actTURN_L);
-				break;
-
-				case 3:
-					plan.push_back(actTURN_R);
-				break;
-			}
-		}
-
-		else if(anterior->columna < siguiente->columna) {
-			switch(anterior->orientacion) {
-				case 0:
-					plan.push_back(actTURN_R);
-				break;
-
-				case 1:
-				break;
-
-				case 2:
-					plan.push_back(actTURN_L);
-				break;
-
-				case 3:
-					plan.push_back(actTURN_L);
-					plan.push_back(actTURN_L);
-				break;
-			}
-		}
-
-		else {
-			switch(anterior->orientacion) {
-				case 0:
-					plan.push_back(actTURN_L);
-				break;
-
-				case 1:
-					plan.push_back(actTURN_L);
-					plan.push_back(actTURN_L);
-				break;
-
-				case 2:
-					plan.push_back(actTURN_R);
-				break;
-
-				case 3:
-				break;
-			}
-		}
-		
-		plan.push_back(actFORWARD);
-	}
-
-	return !ruta.empty();
-}
-
-Action ComportamientoJugador::think(Sensores sensores) {
-  if (sensores.mensajeF != -1){
-		fil = sensores.mensajeF;
-		col = sensores.mensajeC;
-	}
-
-	// Actualizar el efecto de la ultima accion
-	switch (ultimaAccion){
-		case actTURN_R: brujula = (brujula+1)%4; break;
-		case actTURN_L: brujula = (brujula+3)%4; break;
-		case actFORWARD:
-			switch (brujula){
-				case 0: fil--; break;
-				case 1: col++; break;
-				case 2: fil++; break;
-				case 3: col--; break;
-			}
-			cout << "fil: " << fil << "  col: " << col << " Or: " << brujula << endl;
-	}
-	cout << "Destino fil: " << sensores.destinoF << "  col: " << sensores.destinoC << endl;
-
-	if (sensores.reset){
-		hayPlan = false;
-	}
-
-	// Determinar si ha cambiado el destino desde la ultima planificacion
-	if (hayPlan and (sensores.destinoF != ultPosF or sensores.destinoC != ultPosC)){
-		cout << "El destino ha cambiado\n";
-		hayPlan = false;
-	}
-
-	// Determinar si tengo que construir un plan
-	if (!hayPlan){
-		estado origen, destino;
-		origen.fila = fil;
-		origen.columna = col;
-		origen.orientacion = brujula;
-
-		destino.fila = sensores.destinoF;
-		destino.columna = sensores.destinoC;
-
-    	hayPlan = pathFinding(origen,destino,plan);
-
-		ultPosF = sensores.destinoF;
-		ultPosC = sensores.destinoC;
-	}
-
-
-	// Ejecutar el plan
-	Action sigAccion;
-	if (hayPlan and plan.size()>0){
-		sigAccion = plan.front();
-		plan.erase(plan.begin());
-	}
-	else {
-		sigAccion = actIDLE;
-	}
-
-	ultimaAccion = sigAccion;
-	return sigAccion;
-}
-
 int ComportamientoJugador::interact(Action accion, int valor){
   return false;
 }
-
-int ComportamientoJugador::h(estado e) {
-	int h = (int) abs(destino.fila - e.fila) + (int) abs(destino.columna - e.columna);
-
-	return h;
-}
-
-int ComportamientoJugador::g(estado e) {
-	int g = e.padre->coste_g + 1;
-	e.coste_g = g;
-
-	return g; 
-}
-
-  
