@@ -1,0 +1,66 @@
+/---------------------------------------------------/
+/   Ideas heurística: Mancala                       /
+/---------------------------------------------------/
+
+Idea 1
+---------------------------------------------------------
+
+func h():
+    var h = metidas_granero() - dadas_rival()
+    var ultima_pos = pos_actual + pos_actual.semillas
+
+    return h
+
+func metidas_granero():
+    if pos_actual.semillas >= pos_actual:
+        return 1
+    else:
+        return 0
+
+func dadas_rival():
+    if pos_actual.semillas > pos_actual:
+        return pos_actual.semillas - pos_actual
+    else:
+        return 0
+
+---------------------------------------------------------
+
+Idea 1.1: unificar metidas_granero() y dadas_rival() en valor_jugada()
+---------------------------------------------------------
+
+func h():
+    var h = valor_jugada()
+    var ultima_pos = pos_actual + pos_actual.semillas
+
+    return h
+
+func valor_jugada():
+    if pos_actual.semillas >= pos_actual:
+        return pos_actual.semillas - pos_actual
+    else:
+        return 0
+
+---------------------------------------------------------
+
+Idea 2: añadida comprobación de poder robar
+---------------------------------------------------------
+
+func h():
+    var h = valor_jugada()
+    var ultima_pos = pos_actual + pos_actual.semillas
+
+    if ultima_pos.semillas == 0 and ultima_pos.enfrente().semillas > 0:
+        h = h + ultima_pos.enfrente().semillas + 1
+
+    return h
+
+func valor_jugada():
+    if pos_actual.semillas >= pos_actual:
+        return pos_actual.semillas - pos_actual
+    else:
+        return 0
+
+func enfrente():
+    return pos(oponente, 7 - pos_actual)
+
+---------------------------------------------------------
