@@ -1,11 +1,11 @@
-/---------------------------------------------------/
-/   Ideas heurística: Mancala                       /
-/---------------------------------------------------/
+#---------------------------------------------------/
+#   Ideas heurística: Mancala                       /
+#---------------------------------------------------/
 
-Idea 1
----------------------------------------------------------
+#Idea 1
+#---------------------------------------------------------
 
-func h():
+func h(pos_actual):
     var h = metidas_granero() - dadas_rival()
     var ultima_pos = pos_actual + pos_actual.semillas
 
@@ -23,12 +23,12 @@ func dadas_rival():
     else:
         return 0
 
----------------------------------------------------------
+#---------------------------------------------------------
 
-Idea 1.1: unificar metidas_granero() y dadas_rival() en valor_jugada()
----------------------------------------------------------
+#Idea 1.1: unificar metidas_granero() y dadas_rival() en valor_jugada()
+#---------------------------------------------------------
 
-func h():
+func h(pos_actual):
     var h = valor_jugada()
     var ultima_pos = pos_actual + pos_actual.semillas
 
@@ -40,12 +40,12 @@ func valor_jugada():
     else:
         return 0
 
----------------------------------------------------------
+#---------------------------------------------------------
 
-Idea 2: añadida comprobación de poder robar
----------------------------------------------------------
+#Idea 2: añadida comprobación de poder robar
+#---------------------------------------------------------
 
-func h():
+func h(pos_actual):
     var h = valor_jugada()
     var ultima_pos = pos_actual + pos_actual.semillas
 
@@ -64,4 +64,105 @@ func valor_jugada():
 func enfrente():
     return pos(oponente, 7 - pos_actual)
 
----------------------------------------------------------
+#---------------------------------------------------------
+
+#Idea 3: añadida comprobación de si una casilla tiene semillas
+#---------------------------------------------------------
+
+func h(pos_actual):
+
+    var h
+    var ultima_pos
+
+    if pos_actual.semillas > 0:
+        h = valor_jugada()
+        ultima_pos = pos_actual + pos_actual.semillas
+
+        if ultima_pos.es_mia() and not ultimaPos.es_granero():
+            if ultima_pos.semillas == 0 and ultima_pos.enfrente().semillas > 0:
+                h = h + ultima_pos.enfrente().semillas + 1
+
+
+    else:
+        #Valor muy bajo para que nunca lo tome.
+        h = -70
+
+    return h
+
+func valor_jugada(pos_actual):
+    if pos_actual.semillas >= pos_actual:
+        return pos_actual.semillas - pos_actual
+    else:
+        return 0
+
+func enfrente(pos_actual):
+    return pos(oponente, 7 - pos_actual)
+#--------------------------------------------------------
+
+#Idea 4: tiene en cuenta que cuando das más de seis semillas al rival, vuelven a ti (más vueltas).
+#Corregido cálculo de valor_jugada(). Se debe restar pos_actual - pos_actual.semillas, no al contrario.
+#---------------------------------------------------------
+
+const CASILLAS_VUELTA_COMPLETA = 13
+
+func h(pos_actual):
+
+    var h
+    var ultima_pos
+
+    #Para que una ficha "salte" del lado contrario al nuestro dando la vuelta,
+    #necesitamos tener un número de semillas mayor al que tiene que recorrer contando el granero,
+    #es decir, 6 + pos. Como pueden dar más de una vuelta, calculamos modulo(semillas, pos+6), y así
+    #vemos cuántas se introducen en el granero, además de ver cuántas semillas damos al rival en caso de dar
+    #vueltas.
+    var vueltas = pos_actual.semillas%(pos_actual+6)
+
+
+    if pos_actual.semillas > 0:
+        h = valor_jugada(pos_actual, vueltas)
+        
+        #Calculamos última posición:
+        if pos_actual > semillas:
+            ultima_pos = posicion_actual - posicion_actual.semillas
+
+        elif pos_actual == pos_relativa(pos_actual, vueltas):
+            ultima_pos = tu_granero
+        
+        elif (pos_relativa(pos_actual, vueltas) > pos_actual and pos_relativa(pos_actual, vueltas) < pos_actual+6:    #se queda en el otro lado
+            ultima_pos = enfrente(semillas - vueltas*CASILLAS_VUELTA_COMPLETA)
+        
+        else: #se queda en nuestro lado
+            ultima_pos = pos_actual - pos_relativa(pos_actual, vueltas)
+
+
+        if ultima_pos.es_mia() and not ultimaPos.es_granero():
+            if ultima_pos.semillas == 0 and ultima_pos.enfrente().semillas > 0:
+                h = h + ultima_pos.enfrente().semillas + 1
+
+
+    else:
+        #Valor muy bajo para que nunca lo tome.
+        h = -70
+
+    return h
+
+func valor_jugada(pos_actual, vueltas):
+    if pos_actual.semillas >= pos_actual:
+        if vueltas > 1:
+            return pos_actual - 6*vueltas + vueltas
+        else:
+            return pos_actual - pos_actual.semillas + 1
+    else:
+        return 0
+
+func enfrente(pos_actual):
+    return pos(oponente, 7 - pos_actual)
+
+#Esta función devuelve la posición relativa a la actual.
+#Valores positivos: a la derecha.
+#Valores negativos: a la izquierda.
+func pos_relativa(pos_actual, vueltas):
+    return semillas - vueltas*CASILLAS_VUELTA_COMPLETA)
+
+#--------------------------------------------------------
+
