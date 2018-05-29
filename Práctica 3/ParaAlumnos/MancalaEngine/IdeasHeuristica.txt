@@ -49,8 +49,9 @@ func h():
     var h = valor_jugada()
     var ultima_pos = pos_actual + pos_actual.semillas
 
-    if ultima_pos.semillas == 0 and ultima_pos.enfrente().semillas > 0:
-        h = h + ultima_pos.enfrente().semillas + 1
+    if ultima_pos.es_mia() and not ultimaPos.es_granero():
+        if ultima_pos.semillas == 0 and ultima_pos.enfrente().semillas > 0:
+            h = h + ultima_pos.enfrente().semillas + 1
 
     return h
 
