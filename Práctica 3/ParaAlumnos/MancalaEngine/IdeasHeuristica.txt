@@ -15,7 +15,7 @@ func metidas_granero():
     if pos_actual.semillas >= pos_actual:
         return 1
     else:
-        return 0
+        return 0Las optimizaciones hacen lo que tienen que hacer.
 
 func dadas_rival():
     if pos_actual.semillas > pos_actual:
@@ -134,7 +134,7 @@ func h(pos_actual):
         else: #se queda en nuestro lado
             ultima_pos = pos_actual - pos_relativa(pos_actual, vueltas)
 
-
+        #Robo:
         if ultima_pos.es_mia() and not ultimaPos.es_granero():
             if ultima_pos.semillas == 0 and ultima_pos.enfrente().semillas > 0:
                 h = h + ultima_pos.enfrente().semillas + 1
@@ -166,3 +166,6 @@ func pos_relativa(pos_actual, vueltas):
 
 #--------------------------------------------------------
 
+#En caso de turno extra, se suceden varios MAX o varios MIN.
+#No siempre eres J1.
+#Se puede consultar el jugador de cada estado, y si eres J1 o J2
