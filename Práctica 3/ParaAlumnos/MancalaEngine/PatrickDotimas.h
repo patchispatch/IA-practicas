@@ -17,21 +17,22 @@ public:
 	const int CAS_VUELTA_COMPLETA = 13;
 
 	//Variables:
-	//Guardaremos qué jugador es Patrick:
+	//Guardaremos qué jugador es Patrick, y el oponente:
+	bool primeraVez;
 	Player patrick;
+	Player oponente;
 
 	PatrickDotimas();
 	~PatrickDotimas();
 
-	int h(GameState state, Position pos, Player p);
-
 	void initialize();
 	string getName();
 	Move nextMove(const vector<Move> &adversary, const GameState &state);
-	int valorJugada(GameState state, Position pos, Player p, int vueltas);
-	Position enfrente(Position pos);
-	Position posRelativa(int seeds, int vueltas);
-	int alfaBeta(GameState state, Position pos, int alfa, int beta, int profundidad);
+
+	//Métodos nuevos:
+
+	int h(GameState state);
+	int alfaBeta(GameState state, int alfa, int beta, int profundidad);
 
 };
 
