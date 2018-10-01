@@ -1,5 +1,5 @@
 # IA-practicas
-Prácticas de la asignatura Inteligencia Artificial del Grado de Ingeniería Informática en la UGR (2017-2018)
+Prácticas de la asignatura Inteligencia Artificial del Grado de Ingeniería Informática en la UGR (2017-2018).
 
 ### Calificaciones
 * Práctica 1: 6 sobre 10
